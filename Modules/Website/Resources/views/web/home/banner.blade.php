@@ -96,9 +96,17 @@ $langId=$fcountry_language['id'];
                             </select>
                         </div>
 
-                        <div class="input-field input_wrapper location_input">
+                        <div class="input-field input_wrapper location_input"><!-- 
                         <input   type="text" class="validate" id="searchLocation_{{ trim($row->id)}}" name="searchLocation"  data-id="Btn_Search_form_{{ trim($row->id)}}" placeholder="{{trans('countries::home/home.Location')}}" onkeypress="autocompleteLocation('searchLocation_{{ trim($row->id)}}')" />
-                            <img src="{{ asset('public/images/icon-search.png')}}"  data-id="searchLocation_{{ trim($row->id)}}" class="mapPointer places-autocomplete">
+
+    -->
+                         <input   type="text" class="validate  places-autocomplete" id="searchLocation_{{ trim($row->id)}}" name="searchLocation"  data-id="Btn_Search_form_{{ trim($row->id)}}" placeholder="{{trans('countries::home/home.Location')}}" />
+
+ <!-- 
+ <input type="text" class="validate valid " id="searchLocation_" name="searchLocation" placeholder="Location" value="India" autocomplete="off">
+ -->
+
+                            <img src="{{ asset('public/images/icon-search.png')}}"  data-id="searchLocation_{{ trim($row->id)}}" class="mapPointer ">
                         </div>
 
                         <div class="search_btn input_wrapper">

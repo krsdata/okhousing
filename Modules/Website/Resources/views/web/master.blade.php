@@ -35,9 +35,10 @@
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.svg')}}">
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.ttf')}}">
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.woff')}}">
-
+<!-- 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+ -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     
 </head>
