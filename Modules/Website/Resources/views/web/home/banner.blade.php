@@ -267,7 +267,9 @@ $langId=$fcountry_language['id'];
  
 <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRXJxQZefgiAbDF2U7Qqv8PNoqBgRiYUc&libraries=places" async defer></script>
  -->
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSZam0MGVvUX5sXb0r_zN2Yb-7evucOo&sensor=false&libraries=places"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSZam0MGVvUX5sXb0r_zN2Yb-7evucOo&sensor=false&libraries=places"></script>
 
 
 <script type="text/javascript">
