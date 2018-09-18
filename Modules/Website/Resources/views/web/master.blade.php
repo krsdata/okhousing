@@ -28,13 +28,6 @@
    
     @stack('style')
     <script> var base_url = "{{URL::to('/')}}"; </script>
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{{asset('public/js/jquery.min.js')}}"></script> 
-     <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
-    <script src="{{asset('public/js/bootstrap.min.js')}}"></script> 
-   
-    <script src="{{asset('public/web/js/materialize.min.js')}}"></script>
-    <script src="{{asset('public/web/js/slick.min.js')}}"></script>
 
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/font.css')}}">
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/font.min.css')}}">
@@ -42,7 +35,9 @@
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.svg')}}">
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.ttf')}}">
     <link rel="stylesheet" href="{{asset('public/web/fonts/ruppee/WebRupee.V2.0.woff')}}">
-      
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
     
 </head>
@@ -174,6 +169,10 @@ $country_flag = $fcountry['flag'];
 <div id="OpenPropertyDetailModal" data-toggle="modal" data-target=".modal1" style="display:none;"></div>
 
 
+    <script src="{{asset('public/js/bootstrap.min.js')}}"></script> 
+    <script src="{{asset('public/web/js/materialize.min.js')}}"></script>
+    <script src="{{asset('public/web/js/slick.min.js')}}"></script>
+
 
 <style type="text/css">
      .fav-icon.inactive , i.inactive {
@@ -183,9 +182,14 @@ $country_flag = $fcountry['flag'];
         
 </style>
     @yield('content')
+
     @yield('js')
-    
     @stack('scripts')
+         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!--  <script src="{{asset('public/js/jquery.min.js')}}"></script> 
+    -->  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
+
+
     <script src="{{asset('public/site/js/site.js')}}"></script> 
     <script src="{{asset('public/site/js/plugin/intlTelInput.min.js')}}"></script>
     <script src="{{asset('public/site/js/front_users.js')}}"></script>
