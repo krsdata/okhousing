@@ -1,0 +1,327 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+Created on : Apr 20, 2018, 9:48:30 AM
+Author     : Huemen
+*/
+
+.signup 
+{
+    border-radius: 10px;
+    position: relative;
+    min-width: 550px;
+} 
+.signup .signup-box {  display: block !important;  } 
+.signup .modal-content { min-height: 375px; } 
+.signup .close-popup 
+{
+    width: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer; 
+} 
+.signup .close-popup img {   width: 100%; } 
+.signup h3 
+{
+    margin-top: 50px;
+    padding-left: 34%;
+    text-align: left;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-left: 25px;
+} 
+.signup .left-box
+{
+    padding-top: 80px;
+    width: 33%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #feb63d;
+    border-radius: 6px 0 0 6px;
+} 
+.signup ul {  width: 100%; /* padding-left: 18px;*/ } 
+.signup ul li {  display: block;  /* margin-bottom: 10px;*/padding-left: 18px; } 
+.signup ul li.active a {  background: #fff;  color: #010000;  font-weight: bold} 
+.signup ul li a 
+{
+    display: block;
+    border-radius: 10px 0 0 10px;
+    padding: 20px 15px;
+    color: #fff;
+    font-size: .9em;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.05em;
+    
+} 
+.signup ul li a i {  font-size: 12px; } 
+.signup .right-box 
+{
+    padding-right: 30px;
+    padding-bottom: 40px;
+    padding-left: 34%;
+} 
+.signup h4 
+{
+    color: #4e5e87;
+    margin-left: 30px;
+    margin-top: 0px;
+    font-size: 1.2em;
+    font-family: 'Gotham HTF'; 
+} 
+.signup .form-list {  display: flex;  flex-wrap: wrap; } 
+.signup .form-list li {   width: 50%; } 
+.signup .form-list li:nth-child(odd) {  padding-right: 5px; } 
+.signup .form-list li:nth-child(even) {  padding-left: 5px; } 
+.signup .form-list li .number {    display: flex; } 
+.signup .form-list li .number .left li {  width: 100% !important; } 
+.signup .form-list li .number input
+{
+    margin: 0;
+    padding: 4px 0;
+   height: 39px;
+} 
+.signup .form-list li .number input.select-dropdown { height: 39px; } 
+.signup .form-list input 
+{
+    font-size: 11px;
+    font-weight: bold;
+    width: 95.6%;
+   padding: 29px 0px 6px 0 ;
+    color: #4e5e87;
+    /*margin: 0 0 30px 0;*/
+    border-bottom: 1px solid #eeecec;
+    font-family: 'Gotham HTF'; 
+} 
+.signup .form-list input.select-dropdown
+{
+    height: 18px;
+    color: #4e5e87;
+    font-size: 0.750em; 
+} 
+.signup .form-list label 
+{
+    color: #4e5e87;
+   font-size: .95em;
+}
+
+.signup .signup-btn
+{
+    width: 120px;
+    background: #feb63d;
+    padding: 13px 0px;
+    text-align: center;
+    border: 0;
+    color: #fff;
+    margin-top: 15px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    margin-left: 13px;
+    -webkit-box-shadow: -1px 3px 39px -12px rgba(0, 0, 0, 0.81);
+    -moz-box-shadow: -1px 3px 39px -12px rgba(0, 0, 0, 0.81);
+    box-shadow: -1px 3px 39px -12px rgba(0, 0, 0, 0.81);
+} 
+.signup .txt-create-ac 
+{
+    font-size: 0.938em;
+    text-align: left;
+    color: #4e5e87;  
+    margin-left: 13px;
+     font-weight: bold
+} 
+.signup .txt-create-ac .signin-btn-2
+{
+    color: #0d9bff;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-decoration: underline;
+} 
+.signup .boxes { display: flex; } 
+.signup .boxes .left-item,
+.signup .boxes .right-item {  width: 50%; } 
+.signup .boxes .left-item span,
+.signup .boxes .right-item span 
+{
+    display: block;
+    font-size: 0.813em;
+    color: #4e5e87;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 25px; 
+    margin-left: 30px;
+} 
+.signup .boxes .left-item [type="checkbox"].filled-in:not(:checked) + label:after,
+.signup .boxes .right-item [type="checkbox"].filled-in:not(:checked) + label:after 
+{
+    border: 1px solid #e1e1e1;
+    width: 23px;
+    height: 23px;
+    border-radius: 4px; 
+} 
+.signup .boxes .left-item [type="checkbox"] + label,
+.signup .boxes .right-item [type="checkbox"] + label
+{
+    color: #4e5e87;
+    font-family: 'Gotham HTF';
+    font-size: 0.813em; 
+} 
+.signup .boxes .left-item [type="checkbox"].filled-in:checked + label:after,
+.signup .boxes .right-item [type="checkbox"].filled-in:checked + label:after 
+{
+    width: 23px;
+    height: 23px;
+    border: 1px solid #3cb878;
+    background-color: #fff; 
+} 
+.signup .boxes .left-item [type="checkbox"].filled-in:checked + label:before,
+.signup .boxes .right-item [type="checkbox"].filled-in:checked + label:before 
+{
+    top: 1px;
+    left: 3px;
+    border-right: 2px solid #37db67;
+    border-bottom: 2px solid #37db67; 
+} 
+.signup .imageup .viewimg,
+.signup .imageup .uploadimg {  display: inline-block;  vertical-align: top; } 
+.signup .imageup .viewimg 
+{
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    background: #ebebeb;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.signup .imageup .viewimg .mypro
+{
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    background: #ebebeb;
+    text-align: center;
+     
+} 
+.signup .imageup .viewimg span {  font-size: 2em; } 
+.signup .imageup .uploadimg { width: 120px;  margin-left: 20px;    margin-top: 5px; } 
+.signup .imageup .uploadimg input {  display: none; } 
+.signup .imageup .uploadimg span 
+{
+    display: block;
+    color: #4e5e87;
+    font-size: 0.813em; 
+} 
+.signup .imageup .uploadimg label 
+{
+    background: #f3f3f3;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer; 
+} 
+.signup .imageup .input-field  { margin-top: 30px;     margin-left: 30px;} 
+.signup .imageup .input-field textarea 
+{
+    border: none;
+    border-bottom: 1px solid #eeecec;
+    padding: 10px 20px;
+    min-height: 100px;
+    max-height: 300px;
+    max-width: 100%;
+    margin-left: 0px;
+
+} 
+.signup .imageup .input-field label  { color: #4e5e87; font-size: 0.813em;  } 
+.signup .verification p 
+{
+    color: #4e5e87;
+    font-size: 0.813em;
+    margin-bottom: 20px; 
+} 
+.signup .verification input {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #e1e1e1;
+    width: 40px;
+    height: 64px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.signup .verification button 
+{
+    font-size: 0.813em;
+    display: block;
+    border: none;
+    background: none;
+    color: #0d9bff;
+    font-family: 'Gotham HTF';
+    text-decoration: underline; 
+}
+
+
+
+    .modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.gi{padding-left: 15px !important}
+.val-error{color: #ff2d09 !important;font-size: 10px;margin-top: -16px !important;padding: 5px}
+.signup .fmain-fcategory{margin-left: 13px;}
+.signup .fother-fcategory{margin-left: 13px;}
+.signup .Rnext2{    margin-bottom: 0px;margin-top: 12px;    margin-left: 25px;}
+.numberBox .val-error{margin-top: 2px !important;}
+
+/*.input-field input::placeholder {
+  color: #4e5e87;
+    font-size: .8em;  
+    margin-bottom: 300px !important;
+     vertical-align: middle;
+    font-weight: bold;
+    font-family: 'Gotham Rounded';
+}*/
+
+
+@media (max-width:767px){
+.advertisedModal .advertise-box .close-popup img{
+right: 0px;
+top: 0px;
+}
+}
+
+@media (max-width:767px){
+
+.signup h3{padding-left:0;}
+.gi{padding-left:0 !important;}
+.signup ul{padding: 5px 0px 5px 0px !important;}
+.signup .form-list li{width:100%;}
+.intl-tel-input{width:100%;}
+.signup .form-list li:nth-child(2n+1){padding-left:5px;}
+
+}

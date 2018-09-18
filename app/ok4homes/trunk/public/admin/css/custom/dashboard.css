@@ -1,0 +1,58 @@
+.validation-error-label:empty, .validation-valid-label:empty{
+	display: none!important;
+}
+form .border-left-danger{
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #F44336;
+  font-size: 10px;
+}
+.sel-check{
+	margin-bottom: 0px;
+    padding-top: 10px;
+}
+
+.type-list{
+	margin-top: 20px;
+}
+.radio-inline, .checkbox-inline {
+    position: relative;
+    padding-left: 30px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.checker, .checker span, .checker input {
+    width: 22px;
+    height: 22px;
+}
+.choice, .choice span, .choice input  {
+    width: 20px;
+    height: 20px;
+}
+.checker span:after{
+	font-size: 20px;
+}
+ .choice span:after{
+	border: 5px solid;
+}
+.uk-alert{
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+body{
+  padding-top: 0px;
+}
+.propertyDetails
+{
+    padding: 10px;
+    border: 1px solid #eee;
+    display: block;
+    width: 100%;
+}
+.Hide {
+    display: none;
+}
+.Show {
+    display: block;
+}

@@ -1,0 +1,246 @@
+section.dashbord,
+.grid-list-box {
+    background: #f6f6f6;
+    .left-box {
+        background: #fff;
+        padding: 50px 35px 50px 30px;
+        .profile {
+            width: 100%;
+            border: 1px solid #efefef;
+            border-radius: 15px 15px 0 0;
+            .cover {
+                width: 100%;
+                height: 154px;
+                position: relative;
+                border-radius: 15px 15px 0 0;
+                .img-box {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    overflow: hidden;
+                    border-radius: 15px 15px 0 0;
+                }
+                .dp-box {
+                    position: absolute;
+                    width: 135px;
+                    height: 135px;
+                    overflow: hidden;
+                    text-align: center;
+                    border-radius: 50%;
+                    background: #ccc;
+                    left: 30px;
+                    bottom: -70px;
+                    -webkit-box-shadow: 2px 4px 45px -3px rgba(0, 0, 0, 0.40);
+                    -moz-box-shadow: 2px 4px 45px -3px rgba(0, 0, 0, 0.40);
+                    box-shadow: 2px 4px 45px -3px rgba(0, 0, 0, 0.40);
+                    img {
+                        width: 100%;
+                    }
+
+                }
+                button {
+                    position: absolute;
+                    top: 20px;
+                    right: 30px;
+                    background: none;
+                    border: none;
+                    color: #fff;
+                    font-size: 0.750em;
+                    i {
+                        margin-right: 5px;
+                    }
+                }
+                img {
+                    width: 100%;
+                }
+            }
+            .profile-details {
+                padding: 75px 55px 55px 55px;
+                position: relative;
+                h2 {
+                    margin-top: 30px;
+                    font-size: 1.438em;
+                    font-weight: 400;
+                    color: #474747;
+                }
+                .profile-edit {
+                    position: absolute;
+                    top: 10%;
+                    right: 55px;
+                    color: #0d629e;
+                    cursor: pointer;
+                }
+                .user-id {
+                    color: #feb63d;
+                    display: block;
+                    font-size: 1em;
+                    position: absolute;
+                    right: 55px;
+                    top: 20%;
+                }
+                .user-designation {
+                    display: block;
+                    font-size: 0.750em;
+                    margin-bottom: 30px;
+                }
+                .profile-contact {
+                    border-bottom: 1px solid #d4d4d4;
+                    padding-bottom: 45px;
+                    li {
+                        margin-bottom: 10px;
+                        span {
+                            color: #474747;
+                            font-size: 0.875em;
+                            display: inline-block;
+                            &:first-child {
+                                width: 70px;
+                            }
+                            &:nth-child(2) {
+                                width: 30px;
+                            }
+                        }
+                    }
+                }
+                h3 {
+                    color: #000102;
+                    font-size: 1.063em;
+                    padding: 0;
+                    margin: 30px 0 20px 0;
+                    text-align: left;
+                }
+                p {
+                    color: #606879;
+                    font-size: 1em;
+                }
+                .btn-box {
+                    background: #feb63d;
+                    padding: 15px 30px;
+                    width: auto;
+                    height: auto;
+                    border-radius: 15px;
+                    margin-top: 30px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+    .right-box {
+        position: relative;
+        height: 100vh;
+        .tab-content {
+            margin-top: 30px;
+            height: 81vh;
+            overflow-y: auto;
+        }
+        .profile-tab-box {
+            height: 100vh;
+            .property_container {
+                .property_wrapper {
+                    height: 315px;
+                    background: #fff;
+                    .image_wrapper {
+                        .property_deatil {
+                            left: 23px;
+                            h4 {
+                                font-size: 1.125em;
+                                margin: 15px 0 5px 0;
+                            }
+                            span {
+                                font-size: 0.750em;
+                            }
+                        }
+                        height: 192px;
+                        .badge {
+                            &.rent {
+                                background-color: rgba(223, 167, 70, 0);
+                                right: auto;
+                                left: 6px;
+                            }
+                        }
+                        .right-btn {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            border-radius: 0 0 0 5px;
+                            z-index: 99;
+                            cursor: pointer;
+                            .icon {
+                                text-decoration: none;
+                                background: #fff;
+                                text-align: center;
+                                border: none;
+                                width: 35px;
+                                height: 35px;
+                                display: block;
+                                &:first-child {
+                                    border-bottom: 1px solid #f2f2f2;
+                                    i {
+                                        padding-top: 10px;
+                                    }
+                                }
+                                i {
+                                    color: #b0b9c3;
+                                    font-size: 13px;
+                                }
+
+                            }
+                            button {
+                                border-radius: 0 0 0 7px;
+                            }
+                        }
+                    }
+                    .content_wrapper {
+                        padding: 20px 25px;
+                        .quick_detail_list {
+                            ul {
+                                li {
+                                    margin-right: 15px;
+                                    img {
+                                        margin-right: 10px;
+                                        height: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .tab-head {
+                padding-top: 50px;
+                padding-left: 15px;
+                li {
+                    display: inline-block;
+                    vertical-align: top;
+                    a {
+                        display: block;
+                        color: #bbcbdd;
+                        font-size: 0.938em;
+                        position: relative;
+                        margin-right: 65px;
+                        padding-bottom: 10px;
+                        text-decoration: none;
+                        &:after {
+                            display: none;
+                            content: "";
+                            position: absolute;
+                            height: 5px;
+                            width: 100%;
+                            top: 30px;
+                            background: #feb63d;
+                        }
+                    }
+                    &.active {
+                        a {
+                            color: #0b609c;
+                            &:after {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

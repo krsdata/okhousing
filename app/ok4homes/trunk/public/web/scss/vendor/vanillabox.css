@@ -1,0 +1,246 @@
+/*
+ * Vanillabox
+ * (C) 2013 cocopon.
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+/* line 9, vanillabox.scss */
+.vnbx * {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box; }
+
+/* line 14, vanillabox.scss */
+.vnbx-mask {
+  left: 0;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  z-index: 999; }
+
+/* line 22, vanillabox.scss */
+.vnbx-frame {
+  position: absolute; }
+
+/* line 26, vanillabox.scss */
+.vnbx-button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; }
+
+/* line 32, vanillabox.scss */
+.vnbx-prev,
+.vnbx-next {
+  visibility: hidden; }
+
+/* line 38, vanillabox.scss */
+.vnbx-group .vnbx-prev,
+.vnbx-group .vnbx-next {
+  visibility: visible; }
+
+/* line 44, vanillabox.scss */
+.vnbx-pager {
+  visibility: hidden; }
+
+/* line 48, vanillabox.scss */
+.vnbx-group .vnbx-pager {
+  visibility: visible; }
+
+/* line 52, vanillabox.scss */
+.vnbx-container {
+  overflow: hidden;
+  position: relative; }
+
+/* line 57, vanillabox.scss */
+.vnbx-content {
+  display: block;
+  left: 50%;
+  position: absolute;
+  top: 50%; }
+  /* line 63, vanillabox.scss */
+  .vnbx-content > img {
+    vertical-align: middle; }
+  /* line 66, vanillabox.scss */
+  .vnbx-content > iframe {
+    border-width: 0;
+    vertical-align: middle; }
+
+/* line 73, vanillabox.scss */
+.vnbx-ios .vnbx-content {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
+  /* line 76, vanillabox.scss */
+  .vnbx-ios .vnbx-content > iframe {
+    display: block;
+    height: 100%;
+    width: 100%; }
+
+/* line 83, vanillabox.scss */
+.vnbx-empty,
+.vnbx-loading,
+.vnbx-error {
+  height: 150px;
+  width: 200px; }
+
+/* line 91, vanillabox.scss */
+.vnbx-loading > img,
+.vnbx-loading > iframe {
+  display: none;
+  height: 150px;
+  width: 200px; }
+
+/* line 100, vanillabox.scss */
+.vnbx-error > img,
+.vnbx-error > iframe {
+  display: none;
+  height: 150px;
+  width: 200px; }
+
+/* line 108, vanillabox.scss */
+.vnbx-mask {
+  background-color: rgba(0, 0, 0, 0.7); }
+
+/* line 112, vanillabox.scss */
+.vnbx-frame {
+  padding-top: 32px; }
+
+/* line 116, vanillabox.scss */
+.vnbx-button {
+  position: absolute; }
+  /* line 118, vanillabox.scss */
+  .vnbx-button.vnbx-disabled {
+    display: none; }
+
+/* line 123, vanillabox.scss */
+.vnbx-close {
+  background-image: url("img/close0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  height: 32px;
+  right: -8px;
+  top: 0;
+  width: 32px; }
+  /* line 132, vanillabox.scss */
+  .vnbx-close:hover {
+    background-image: url("img/close1.png"); }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 138, vanillabox.scss */
+  .vnbx-close {
+    background-image: url(img/close0@2x.png); } }
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 144, vanillabox.scss */
+  .vnbx-close:hover {
+    background-image: url(img/close1@2x.png); } }
+/* line 149, vanillabox.scss */
+.vnbx-prev,
+.vnbx-next {
+  height: 100%;
+  margin-top: 16px;
+  top: 0;
+  width: 44px; }
+
+/* line 157, vanillabox.scss */
+.vnbx-prev {
+  background-image: url("img/prev0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  left: -44px; }
+  /* line 163, vanillabox.scss */
+  .vnbx-prev:active, .vnbx-prev:hover {
+    background-image: url("img/prev1.png"); }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 170, vanillabox.scss */
+  .vnbx-prev {
+    background-image: url(img/prev0@2x.png); } }
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 177, vanillabox.scss */
+  .vnbx-prev:active, .vnbx-prev:hover {
+    background-image: url(img/prev1@2x.png); } }
+/* line 184, vanillabox.scss */
+.vnbx-next {
+  background-image: url("img/next0.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  right: -44px; }
+  /* line 190, vanillabox.scss */
+  .vnbx-next:active, .vnbx-next:hover {
+    background-image: url("img/next1.png"); }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 197, vanillabox.scss */
+  .vnbx-next {
+    background-image: url(img/next0@2x.png); } }
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 204, vanillabox.scss */
+  .vnbx-next:active, .vnbx-next:hover {
+    background-image: url(img/next1@2x.png); } }
+/* line 211, vanillabox.scss */
+.vnbx-label {
+  font-family: sans-serif;
+  font-size: 1em;
+  position: absolute; }
+
+/* line 217, vanillabox.scss */
+.vnbx-title {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #eee;
+  height: 32px;
+  left: 0;
+  line-height: 32px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  top: 0;
+  white-space: nowrap;
+  width: 100%; }
+
+/* line 232, vanillabox.scss */
+.vnbx-close-button-enabled .vnbx-title {
+  padding-right: 32px; }
+
+/* line 236, vanillabox.scss */
+.vnbx-pager {
+  bottom: -30px;
+  color: #aaa;
+  font-size: 90%;
+  height: 22px;
+  left: 0;
+  line-height: 22px;
+  text-align: center;
+  width: 100%; }
+
+/* line 247, vanillabox.scss */
+.vnbx-container {
+  background-color: #222;
+  text-align: center; }
+
+/* line 252, vanillabox.scss */
+.vnbx-loading {
+  background-image: url("img/loading.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px; }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 260, vanillabox.scss */
+  .vnbx-loading {
+    background-image: url(img/loading@2x.gif); } }
+/* line 265, vanillabox.scss */
+.vnbx-error {
+  background-image: url("img/error.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 32px; }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  /* line 273, vanillabox.scss */
+  .vnbx-error {
+    background-image: url(img/error@2x.png); } }
+
+/*# sourceMappingURL=vanillabox.css.map */
