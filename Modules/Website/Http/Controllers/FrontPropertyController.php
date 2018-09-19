@@ -262,11 +262,32 @@ class FrontPropertyController extends Controller
                     
                 }
                 if($request->file('images')){
+
+
+
+
+
                     $imgloop = 1;
 
                     $imageExt = array('jpg','png','jpeg');
-                    foreach ($request->file('images')  as $gimage) {
+                    foreach ($request->file('images')  as $key =>  $gimage) {
                         $extension = $gimage->getClientOriginalExtension();
+
+                        $validator = \Validator::make($request->file('images'), [
+                            'images.*' => 'image|max:10'
+                        ]);
+
+                        if ($validator->fails()) {
+                                    $error_msg  =   [];
+                            foreach ( $validator->messages()->all() as $key => $value) {
+                                        array_push($error_msg, $value);     
+                                    }
+                                            
+                            return response()->json(['status'=>false,'messages'=>'Image size should be less than 10 MB','csrf' => csrf_token()]);
+                        }
+
+
+                        
 
                         if(in_array(strtolower($extension), $imageExt))
                         {
@@ -283,8 +304,6 @@ class FrontPropertyController extends Controller
                             }
                             $propertylists->images4property()->attach($imagename, ['is_featured' => $is_featured]);
                         }
-                        
-
                          $imgloop++;
                     }
                 }

@@ -284,18 +284,11 @@ $(function() {
 
         //Prize
         if(property_prize.length > 0){
-            var numbers = /^[0-9]+$/;
-            if(property_prize.match(numbers))
-            {
+            
                 e=1;
                 $( "#prizebox" ).removeClass( "has-error" );
                 $("#prizebox .help-block").html(' ');
-            }
-            else{
-                e=0;
-                $( "#prizebox" ).addClass( "has-error" ); 
-                $("#prizebox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-            }
+            
         }
         else{
             e=0; 
@@ -332,18 +325,11 @@ $(function() {
         {
              //Building Area
                 if(building_area.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(building_area.match(numbers))
-                    {
+                     
                         g=1;
                         $( "#buildingbox" ).removeClass( "has-error" );
                         $("#buildingbox .help-block").html(' ');
-                    }
-                    else{
-                        g=0;
-                        $( "#buildingbox" ).addClass( "has-error" ); 
-                        $("#buildingbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                    
                 }
                 else{
                     g=0; 
@@ -368,18 +354,11 @@ $(function() {
         {
             //Land Area
                 if(land_area.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(land_area.match(numbers))
-                    {
+                    
                         i=1;
                         $( "#landbox" ).removeClass( "has-error" );
                         $("#landbox .help-block").html(' ');
-                    }
-                    else{
-                        i=0;
-                        $( "#landbox" ).addClass( "has-error" ); 
-                        $("#landbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                     
                 }
                 else{
                     i=0; 
@@ -403,18 +382,11 @@ $(function() {
         {
               //Bed Room
                 if(bed_room.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(bed_room.match(numbers))
-                    {
+                    
                         k=1;
                         $( "#bedbox" ).removeClass( "has-error" );
                         $("#bedbox .help-block").html(' ');
-                    }
-                    else{
-                        k=0;
-                        $( "#bedbox" ).addClass( "has-error" ); 
-                        $("#bedbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                    
                 }
                 else{
                     k=0; 
@@ -425,19 +397,12 @@ $(function() {
         if($("#bathroom_show").val() == 1)
         {
            //Bath Room
-            if(bath_room.length > 0){
-                var numbers = /^[0-9]+$/;
-                if(bath_room.match(numbers))
-                {
+            if(bath_room.length > 0){ 
+                 
                     l=1;
                     $( "#bathbox" ).removeClass( "has-error" );
                     $("#bathbox .help-block").html(' ');
-                }
-                else{
-                    l=0;
-                    $( "#bathbox" ).addClass( "has-error" ); 
-                    $("#bathbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                }
+                 
             }
             else{
                 l=0; 
@@ -724,18 +689,12 @@ $(function() {
         {
              //Building Area
                 if(building_area.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(building_area.match(numbers))
-                    {
+                    
+                    
                         g=1;
                         $( "#buildingbox" ).removeClass( "has-error" );
                         $("#buildingbox .help-block").html(' ');
-                    }
-                    else{
-                        g=0;
-                        $( "#buildingbox" ).addClass( "has-error" ); 
-                        $("#buildingbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                    
                 }
                 else{
                     g=0; 
@@ -760,18 +719,12 @@ $(function() {
         {
             //Land Area
                 if(land_area.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(land_area.match(numbers))
-                    {
+                    
+                    
                         i=1;
-                        $( "#landbox" ).removeClass( "has-error" );
+                        $( "#landbox" ).removeClass( "has-error" ); 
                         $("#landbox .help-block").html(' ');
-                    }
-                    else{
-                        i=0;
-                        $( "#landbox" ).addClass( "has-error" ); 
-                        $("#landbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                     
                 }
                 else{
                     i=0; 
@@ -795,18 +748,11 @@ $(function() {
         {
               //Bed Room
                 if(bed_room.length > 0){
-                    var numbers = /^[0-9]+$/;
-                    if(bed_room.match(numbers))
-                    {
+                    
                         k=1;
                         $( "#bedbox" ).removeClass( "has-error" );
                         $("#bedbox .help-block").html(' ');
-                    }
-                    else{
-                        k=0;
-                        $( "#bedbox" ).addClass( "has-error" ); 
-                        $("#bedbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                    }
+                     
                 }
                 else{
                     k=0; 
@@ -819,18 +765,11 @@ $(function() {
 
            //Bath Room
             if(bath_room.length > 0){
-                var numbers = /^[0-9]+$/;
-                if(bath_room.match(numbers))
-                {
+                
                     l=1;
                     $( "#bathbox" ).removeClass( "has-error" );
                     $("#bathbox .help-block").html(' ');
-                }
-                else{
-                    l=0;
-                    $( "#bathbox" ).addClass( "has-error" ); 
-                    $("#bathbox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-                }
+                 
             }
             else{
                 l=0; 
@@ -889,18 +828,11 @@ $(function() {
 
         //Prize
         if(property_prize.length > 0){
-            var numbers = /^[0-9]+$/;
-            if(property_prize.match(numbers))
-            {
+             
                 e=1;
                 $( "#prizebox" ).removeClass( "has-error" );
                 $("#prizebox .help-block").html(' ');
-            }
-            else{
-                e=0;
-                $( "#prizebox" ).addClass( "has-error" ); 
-                $("#prizebox .help-block").html('<label id="default_select-error" class="validation-error-label" for="default_select">Please enter a valid number.</label>');
-            }
+             
         }
         else{
             e=0; 
@@ -957,7 +889,7 @@ $(function() {
                     var km = $("#km_id_"+data_id).val().trim();
                     if(km.length > 0){
                         var numbers = /^[0-9]+\.?[0-9]*$/;
-                        if(km.match(numbers))
+                        if(km.match(numbers)) 
                         {
                             n=1;
                             $( "#neighbourbox_"+data_id).removeClass( "has-error" );
