@@ -262,7 +262,18 @@
                     processData:false,
                     success: function(response){
                         //console.log(response);
-                       if(response.status==true){window.location.href = response.url;  }else{location.reload();$(".showalert").show(response.alert);}
+                    //   if(response.status==true){window.location.href = response.url;  }else{location.reload();$(".showalert").show(response.alert);}
+
+                    alert(response);
+                        if(response.status==true){
+                            $(".showalert").show(response.alert);
+                            location.reload();
+                            
+                          }
+
+                       if(response.status==false){
+                          $(".showalert").show(response.alert);
+                        }
                     },
                     error: function (request, textStatus, errorThrown) {
                         
