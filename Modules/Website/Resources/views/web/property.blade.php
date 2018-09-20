@@ -247,10 +247,10 @@
 
 
               $(".btn-next").val("{{trans('countries::home/home.Processing')}}");
-            $(".btn-next , .btn-back").attr("disabled","true");
+            //$(".btn-next , .btn-back").attr("disabled","true");
 
-             $(".preLoad").removeClass( "Noloader" );
-            $(".preLoad").addClass( "addloader" );
+           //  $(".preLoad").removeClass( "Noloader" );
+          // $(".preLoad").addClass( "addloader" );
 
               $.ajax({
                     type: "POST",
@@ -260,19 +260,25 @@
                     cache:false,
                     contentType: false,                   
                     processData:false,
-                    success: function(response){
+                    success: function(response){ 
+                      $(".preLoad").addClass( "addloader" );
                         //console.log(response);
                     //   if(response.status==true){window.location.href = response.url;  }else{location.reload();$(".showalert").show(response.alert);}
 
-                    alert(response);
+                    console.log(response);  
+
                         if(response.status==true){
                             $(".showalert").show(response.alert);
-                            location.reload();
-                            
+                             location.reload();  
                           }
 
                        if(response.status==false){
+                        $(".preLoad").removeClass( "Noloader" );
                           $(".showalert").show(response.alert);
+                          $(".btn-next , .btn-back").removeAttr("disabled");
+                          $(".btn-next").val('Save');
+                          $('.imgErr').html(response.alert)
+                          alert(response.alert);
                         }
                     },
                     error: function (request, textStatus, errorThrown) {
@@ -558,6 +564,13 @@
  });
 
 
+var map;
+function initMap(){
+
+   
+}
+
+var map
 
 function initMap() {
 
@@ -573,6 +586,7 @@ function initMap() {
        var country_name = $("#country_name").val();
     }
    
+                            
    //alert(country_name);
 
    
@@ -589,7 +603,6 @@ function initMap() {
             center: {lat: latitude, lng:longitude },
             zoom: 9
           });
-
         var opt = { minZoom: 5, maxZoom: 15 };
         map.setOptions(opt);
 
@@ -615,6 +628,77 @@ function initMap() {
            marker.setVisible(true);
         }
       });
+
+         var latitude = parseFloat(document.getElementById('pro_lat').value);
+        var longitude = parseFloat(document.getElementById('pro_lang').value);
+
+
+        var myLatlng = new google.maps.LatLng(latitude, longitude);
+
+              var myOptions = {
+                  zoom: 8,
+                  center: myLatlng,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              
+
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+              var marker = new google.maps.Marker({
+                  draggable: true,
+                  position: myLatlng,
+                  map: map,
+                  title: country_name
+              });
+              // on drag
+              var geocoder = new google.maps.Geocoder();
+
+              google.maps.event.addListener(marker, 'dragend', function (event) {
+                  document.getElementById("pro_lat").value = event.latLng.lat();
+                  document.getElementById("pro_lang").value = event.latLng.lng();
+                  infoWindow.open(map, marker);
+
+                  geocoder.geocode({
+                      'latLng': event.latLng
+                    }, function(results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          if (results[0]) {
+                            document.getElementById("pac-input").value  = results[0].formatted_address;
+                             
+                             infoWindow.setContent(results[0].formatted_address);
+                            infoWindow.open(map, marker);
+
+                          }
+                        }
+                    });
+
+                });
+              // on click
+              google.maps.event.addListener(marker, 'click', function (event) {
+                  document.getElementById("pro_lat").value = event.latLng.lat();
+                  document.getElementById("pro_lang").value = event.latLng.lng();
+                  infoWindow.open(map, marker);
+
+                  geocoder.geocode({
+                      'latLng': event.latLng
+                    }, function(results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          if (results[0]) {
+                            document.getElementById("pac-input").value  = results[0].formatted_address;
+                             
+                             infoWindow.setContent(results[0].formatted_address);
+                            infoWindow.open(map, marker);
+
+                          }
+                        }
+                    });
+
+                });
+
+              var infoWindow = new google.maps.InfoWindow({
+
+              });
+              
 
     }
     else

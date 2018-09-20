@@ -8,10 +8,35 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
     Route::get('/logout', 'AdminLoginController@logout');
     Route::get('/CheckLogin', 'AdminLoginController@CheckLogin');
     Route::get('/404', 'AdminLoginController@not_found');
- 
+
     
     /* logged admin user opertaions */
     Route::group(['middleware' =>  'admin_auth:admin'], function(){
+
+
+
+    Route::bind('role', function ($value, $route) {
+            return Modules\Roles\Entities\Roles::find($value);
+        });
+
+
+        Route::resource(
+            '/role',
+            'RoleController',
+            [
+                'names' => [
+                    'edit'    => 'role.edit',
+                    'show'    => 'role.show',
+                    'destroy' => 'role.destroy',
+                    'update'  => 'role.update',
+                    'store'   => 'role.store',
+                    'index'   => 'role',
+                    'create'  => 'role.create',
+                ],
+            ]
+        );
+
+
         
        Route::get('/dashboard', 'AdminLoginController@dashboard'); 
 

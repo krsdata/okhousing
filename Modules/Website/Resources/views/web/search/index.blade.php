@@ -582,11 +582,54 @@ span.loaction {
          @if(count($LocationMarker) == 0)
 
 
-          var latLng = new google.maps.LatLng('{{$latmap}}', '{{$langmap}}');
+        var latLng = new google.maps.LatLng('{{$latmap}}', '{{$langmap}}');
         var marker = new google.maps.Marker({
             position: latLng,
+            draggable: true
         });
         marker.setMap(map);
+
+        // on drag pointer
+          var geocoder = new google.maps.Geocoder();
+
+          google.maps.event.addListener(marker, 'dragend', function (event) {
+              infoWindow.open(map, marker);
+              geocoder.geocode({
+                  'latLng': event.latLng
+                }, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                      if (results[0]) {
+                        document.getElementById("searchLocation_").value  = results[0].formatted_address;
+                        infoWindow.setContent(results[0].formatted_address);
+                        infoWindow.open(map, marker);
+                      }
+                    }
+                });
+
+            });
+
+           // on click
+              google.maps.event.addListener(marker, 'click', function (event) {
+                  infoWindow.open(map, marker);
+                  geocoder.geocode({
+                      'latLng': event.latLng
+                    }, function(results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          if (results[0]) {
+                            document.getElementById("searchLocation_").value  = results[0].formatted_address;
+                             infoWindow.setContent(results[0].formatted_address);
+                            infoWindow.open(map, marker);
+
+                          }
+                        }
+                    });
+
+                });
+
+          var infoWindow = new google.maps.InfoWindow({
+
+          });
+
 
 
        /* var geocoder =  new google.maps.Geocoder();

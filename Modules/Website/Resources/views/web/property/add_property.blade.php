@@ -280,6 +280,7 @@ $user_country_id = $UserData->country_id;
                                         </div>
                                     </div>
                                 </div>
+                                <p style="text-align: center; color: red; font-family: bold" class="imgErr"> </p>
                                 <div class="row">    
                                     <div class="col-sm-3 col-xs-12 bedroom_show">    
                                        <div  id="bedroom">
