@@ -161,7 +161,7 @@ $user_country_id = $UserData->country_id;
                                         
                                         <div id="property_prize"> 
                                             <div class="input-field" >
-                                                <input id="property_prize" name="property_prize" type="number" class="validate" min="0"  required onKeyDown="if(this.value.length==9 && event.keyCode>47 && event.keyCode < 58)return false;"  >
+                                                <input id="property_prize" name="property_prize" type="text" class="validate" min="0"  required onKeyDown="if(this.value.length==9 && event.keyCode>47 && event.keyCode < 58)return false;"  >
                                                 <label for="property_title">{{trans('countries::home/home.price')}}</label>
                                                 
                                             </div>

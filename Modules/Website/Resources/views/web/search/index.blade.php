@@ -591,7 +591,6 @@ span.loaction {
 
         // on drag pointer
           var geocoder = new google.maps.Geocoder();
-
           google.maps.event.addListener(marker, 'dragend', function (event) {
               infoWindow.open(map, marker);
               geocoder.geocode({
