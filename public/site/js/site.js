@@ -342,8 +342,8 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
                     $('#showHideMap').html('Show Map');
 
                     var href= $('#showHideMap').attr('href');
-
-                     $("#OpenPropertyDetailModal").trigger("click");
+                    initializeMap();
+                     //$("#OpenPropertyDetailModal").trigger("click");
                         
                      $("span#Count_pro_"+id).text(response.pass_pro_count);
                      $('.nav-tabs > li.active > a').trigger('click');
