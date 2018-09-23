@@ -348,7 +348,7 @@ span.loaction {
                     
 
                     <div class=" PropertyDetailsOnMap fade modal1 in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-keyboard="false" data-backdrop="static" style="display: block; z-index: 0">
-                     <div class="modal-dialog modal-lg list-detail" role="document"  style="margin-top: 0px; min-width: 100%">
+                     <div class="modal-dialog modal-lg list-detail" role="document"  style="margin-top: 0px; min-width: 50%">
                         <div class="modal-content" id="PropertyDetails">
                        <div id="PropertyDetailsOnMap"></div>
 
