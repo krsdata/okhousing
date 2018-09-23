@@ -317,13 +317,12 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
 /* ************************************************************************* */
 /* ************************************************************************* */
  
+    // map show or hide
 
-
-      function ShowPropertyPopup(id)
+   $('#showHideMap').hide();  
+  function ShowPropertyPopup(id)
     {
-     
         
-
         $.ajax({
             type: "GET",
             url: base_url+"/search/ShowProperty/"+id, 
@@ -333,9 +332,17 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
             processData:false,
             success: function(response){
                if(response.status==true){ 
-                    $("#PropertyDetails").html(response.html);
-                    $("#Mymap").html(response.html);
+                    $('#showHideMap').show(); 
+                    $("#Mymap").hide();
+                    $('.PropertyDetailsOnMap').show();    
+                    //$("#PropertyDetails").html(response.html);
+                    $('#PropertyDetailsOnMap').html(response.html)
                     
+                    $('#showHideMap').attr('href','#ShowMap');
+                    $('#showHideMap').html('Show Map');
+
+                    var href= $('#showHideMap').attr('href');
+
                     $("#OpenPropertyDetailModal").trigger("click");
                         
                      $("span#Count_pro_"+id).text(response.pass_pro_count);

@@ -305,7 +305,7 @@
      
 
   $('#showHideMap').click(function(){
-    $('#Mymap').toggle();
+    //$('#Mymap').toggle();
     var txt = $('#showHideMap').html();
 
     var href= $('#showHideMap').attr('href');
@@ -313,11 +313,13 @@
     if(href=='#ShowMap'){
         $('#showHideMap').attr('href','#HideMap');
         $('#showHideMap').html('Hide Map');
+        $('#Mymap').show();
     }
 
     if(href=='#HideMap'){
         $('#showHideMap').attr('href','#ShowMap');
         $('#showHideMap').html('Show Map');
+        $('#Mymap').hide();
     }
   });
 
