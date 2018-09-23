@@ -224,7 +224,13 @@ span.loaction {
                             <div class="button-box">
                                 <button id="FiterSearchResult">{{trans('countries::home/home.Search')}}</button>
                             </div>
+
+                            
+
                         </div>
+                         <div class="pull-right" style="position: absolute; top: 55px; right: 0px;">
+                                <a href="#HideMap" class="button" id="showHideMap"> Hide Map </a>
+                            </div>
                     </div>
                     <div class="col-sm-6 col-xs-12 xspx0">
                         <div class="property-search">

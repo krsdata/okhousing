@@ -332,8 +332,11 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
             contentType: false,                   
             processData:false,
             success: function(response){
-               if(response.status==true){ $("#PropertyDetails").html(response.html);
-                     $("#OpenPropertyDetailModal").trigger("click");
+               if(response.status==true){ 
+                    $("#PropertyDetails").html(response.html);
+                    $("#Mymap").html(response.html);
+                    
+                    $("#OpenPropertyDetailModal").trigger("click");
                         
                      $("span#Count_pro_"+id).text(response.pass_pro_count);
                      $('.nav-tabs > li.active > a').trigger('click');

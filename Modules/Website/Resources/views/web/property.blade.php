@@ -304,7 +304,22 @@
     });
      
 
+  $('#showHideMap').click(function(){
+    $('#Mymap').toggle();
+    var txt = $('#showHideMap').html();
 
+    var href= $('#showHideMap').attr('href');
+
+    if(href=='#ShowMap'){
+        $('#showHideMap').attr('href','#HideMap');
+        $('#showHideMap').html('Hide Map');
+    }
+
+    if(href=='#HideMap'){
+        $('#showHideMap').attr('href','#ShowMap');
+        $('#showHideMap').html('Show Map');
+    }
+  });
 
 
     $(".edit-btn-back").click(function(e) 
