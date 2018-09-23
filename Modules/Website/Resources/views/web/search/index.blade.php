@@ -345,9 +345,12 @@ span.loaction {
                 <div class="col-lg-6 col-sm-6 col-xs-12 px0 grid-list-box">
                     <div id="Mymap" style="height: 100vh; width: 100%;"></div> 
 
-                    <div class="fade  in PropertyDetailsOnMap" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-keyboard="false" data-backdrop="static" style="display: none;">
-                        <div class="modal-dialog modal-lg list-detail" role="document" style="margin-top: 0px; min-width: 100%">
-                            <div class="modal-content" id="PropertyDetailsOnMap">
+                    
+
+                    <div class=" PropertyDetailsOnMap fade modal1 in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-keyboard="false" data-backdrop="static" style="display: block; z-index: 0">
+                     <div class="modal-dialog modal-lg list-detail" role="document"  style="margin-top: 0px; min-width: 100%">
+                        <div class="modal-content" id="PropertyDetails">
+                       <div id="PropertyDetailsOnMap"></div>
 
                             </div>
                         </div>
