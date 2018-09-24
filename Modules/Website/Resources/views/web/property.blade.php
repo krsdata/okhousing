@@ -306,6 +306,7 @@
 
   $('#showHideMap').click(function(){
     //$('#Mymap').toggle();
+
     var txt = $('#showHideMap').html();
 
     var href= $('#showHideMap').attr('href');
@@ -314,12 +315,14 @@
         $('#showHideMap').attr('href','#HideMap');
         $('#showHideMap').html('Hide Map');
         $('#Mymap').show();
+        $('.PropertyDetailsOnMap').hide();    
     }
 
     if(href=='#HideMap'){
         $('#showHideMap').attr('href','#ShowMap');
         $('#showHideMap').html('Show Map');
         $('#Mymap').hide();
+        $('.PropertyDetailsOnMap').show();    
     }
   });
 

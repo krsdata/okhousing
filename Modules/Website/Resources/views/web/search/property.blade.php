@@ -1148,9 +1148,7 @@ function createMarker(obj) {
 }
   
 
-  function initializeMap2() {
-     console.log('map called');
-    
+  function initializeMap2() {    
     // prepare Geocoder
     geocoder = new google.maps.Geocoder();
 
