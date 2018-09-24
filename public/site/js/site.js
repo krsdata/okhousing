@@ -342,7 +342,10 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
                     $('#showHideMap').html('Show Map');
 
                     var href= $('#showHideMap').attr('href');
-                    initializeMap();
+
+                    setTimeout(function(){
+                        initializeMap();
+                    },2000);
                      //$("#OpenPropertyDetailModal").trigger("click");
                         
                      $("span#Count_pro_"+id).text(response.pass_pro_count);
