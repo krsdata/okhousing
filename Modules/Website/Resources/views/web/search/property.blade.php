@@ -1174,8 +1174,11 @@ function createMarker(obj) {
         
     ?>
 
-    map = new google.maps.Map(document.getElementById('gmap_canvas_{{@$show_neigh_data->name}}'), myOptions);
-     map.setOptions({ minZoom: 5, maxZoom: 20 });
+    map = new google.maps.Map(document.getElementById('gmap_canvas_church'), myOptions);
+
+    
+
+    map.setOptions({ minZoom: 5, maxZoom: 20 });
     marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
