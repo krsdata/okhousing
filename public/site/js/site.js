@@ -335,21 +335,23 @@ $('body').on('click', '#property_enquiry_btn', function(e) {
                     $('#showHideMap').show(); 
                     $("#Mymap").hide();
                     $('.PropertyDetailsOnMap').show();    
-                    $("#PropertyDetails").html(response.html);
+                   // $("#PropertyDetails").html(response.html);
                     $('#PropertyDetailsOnMap').html(response.html)
                     $('.close-popup').hide();
                     $('#showHideMap').attr('href','#ShowMap');
                     $('#showHideMap').html('Show Map');
 
                     var href= $('#showHideMap').attr('href');
-                    initializeMap();
-                     //$("#OpenPropertyDetailModal").trigger("click");
 
-                     
+                    setTimeout(function(){
+                        initializeMap();
+                        initializeMap2();
+                    },2000);
+                     //$("#OpenPropertyDetailModal").trigger("click");
                         
                      $("span#Count_pro_"+id).text(response.pass_pro_count);
                      $('.nav-tabs > li.active > a').trigger('click');
-
+                     initializeMap2();
                    }
                 else if(response.status==false){ $("#PropertyDetails").html(response.html);
                     alert("Property has been deleted");

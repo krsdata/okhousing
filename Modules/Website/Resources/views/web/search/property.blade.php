@@ -1148,6 +1148,25 @@ function createMarker(obj) {
 }
   
 
+  function initializeMap2() {
+     console.log('map called');
+    
+    // prepare Geocoder
+    geocoder = new google.maps.Geocoder();
+
+    var lat = $("#Pro_map_lat").val();
+    var lang= $("#Pro_map_lang").val();
+    var myLatlng = new google.maps.LatLng(lat,lang);
+
+    var myOptions = { // default map options
+        zoom: 15,
+        center: myLatlng,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+ 
+    map = new google.maps.Map(document.getElementById('gmap_canvas_church'), myOptions);
+  }
+
     function initializeMap() {
         console.log('map called');
     
@@ -1174,9 +1193,9 @@ function createMarker(obj) {
         
     ?>
 
-    map = new google.maps.Map(document.getElementById('gmap_canvas_church'), myOptions);
+    map = new google.maps.Map(document.getElementById('gmap_canvas_{{@$show_neigh_data->name}}'), myOptions);
 
-    
+
 
     map.setOptions({ minZoom: 5, maxZoom: 20 });
     marker = new google.maps.Marker({
