@@ -38,28 +38,28 @@ class FrontSearchController extends Controller
     public function index(Request $request)
     {
     	
-		    	$Filter= $request;
-		    	$SearchList =$searchCategory1 =$searchCategoryName= array();
-		    	$TotalRecords = $Filter['searchCategorySelected'] = array();
-		    	
-		    	$Filter['PropertyType']= array($request->type);
-		    	// get session language
-		    	$fcountry_language=Session::get('fcountry_language');
-				$langId =$fcountry_language['id'];
+    	$Filter= $request;
+    	$SearchList =$searchCategory1 =$searchCategoryName= array();
+    	$TotalRecords = $Filter['searchCategorySelected'] = array();
+    	
+    	$Filter['PropertyType']= array($request->type);
+    	// get session language
+    	$fcountry_language=Session::get('fcountry_language');
+		$langId =$fcountry_language['id'];
 
-				// get session country
-				$fcountry=Session::get('fcountry');
-				$countryId=$fcountry['created_country_id'];
+		// get session country
+		$fcountry=Session::get('fcountry');
+		$countryId=$fcountry['created_country_id'];
 				//dd($fcountry);
 
 
 				//get category list of selected type
 			/*	$CategoryList = PropertyCategory::where('master_category_id',$request->type)->where('status','1')->where('language_id',$langId)->orderby('name','ASC')->get();*/
 
-			if($request->type)
+			if($request->type && !empty($langId))
 		    {
 
-		    	$SQL = "SELECT * FROM ok4_property_category WHERE status  = 1 AND  language_id = ".$langId." AND deleted_at IS NULL";
+		    	$SQL = "SELECT * FROM ok4_property_category WHERE status  = 1 AND  language_id = '".$langId."' AND deleted_at IS NULL";
 
 		    	$FilterPropertyType = array($request->type);
 		    	
@@ -262,7 +262,7 @@ class FrontSearchController extends Controller
 									$SQL .=" AND user_id != ".Auth::guard('front_user')->user()->id." ";
 								}
 								
-								$SQL .=" AND  country_id  = ".$countryId ."";
+								$SQL .=" AND  country_id  = '".$countryId ."'";
 
 								$TotalRecords = DB::select($SQL);
 								
@@ -380,7 +380,7 @@ class FrontSearchController extends Controller
 		        {
 		            $IPData = array();
 		        }
-
+ 
 		        return view('website::web.search.index', compact('CategoryList','searchCategoryName','CategoryType','buildingunits','landunits','amineties','property_types','SearchList','Filter','Pagination','IPData'));
 
     }
@@ -578,7 +578,7 @@ class FrontSearchController extends Controller
 				}
 
 
-				$SQL .=" AND  country_id  = ".$countryId ."";
+				$SQL .=" AND  country_id  = '".$countryId ."'";
 				
 				$SQL .=" HAVING distance < ".$SearchRadius."  ORDER BY distance";
 
@@ -684,7 +684,7 @@ class FrontSearchController extends Controller
 						
 						$SQL .=" AND user_id != ".Auth::guard('front_user')->user()->id." ";
 					}
-					$SQL .=" AND  country_id  = ".$countryId ."";
+					$SQL .=" AND  country_id  = '".$countryId ."'";
 
 					$SQL .=" HAVING distance < ".$SearchRadius."   ORDER BY distance ";
 
@@ -765,7 +765,7 @@ class FrontSearchController extends Controller
 								$SQL .=" AND user_id != ".Auth::guard('front_user')->user()->id." ";
 							}
 
-							$SQL .=" AND  country_id  = ".$countryId ."";
+							$SQL .=" AND  country_id  = '".$countryId ."'";
 							//dd($SQL);
 					
 				}

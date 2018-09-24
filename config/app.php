@@ -166,7 +166,9 @@ return [
         Stevebauman\Location\LocationServiceProvider::class,
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         
-       // Intervention\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
     ],
 
@@ -219,8 +221,8 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'Module' => Nwidart\Modules\Facades\Module::class,
-
-        //'Image' => Intervention\Image\Facades\Image::class
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

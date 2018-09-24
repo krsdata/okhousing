@@ -280,11 +280,23 @@ $langId=$fcountry_language['id'];
  -->
 
 <script type="text/javascript">
-     var input = document.getElementById('searchLocation_1');
+      var input = document.getElementById('searchLocation_1');
       var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
       google.maps.event.addListener(autocomplete, 'place_changed', function(){
          var place = autocomplete.getPlace();
-      })
+
+        var latitude = place.geometry.location.lat();
+        var longitude = place.geometry.location.lng(); 
+
+        $("#lat_searchLocation_1").val(latitude);
+        $("#lang_searchLocation_1").val(longitude);
+        $(".CurrentCountrySearch").val($("#country_name").val());
+        $("#lat").val(latitude);
+        $("#lng").val(longitude); 
+  });
+
+
+
 </script>
 
 <script type="text/javascript">

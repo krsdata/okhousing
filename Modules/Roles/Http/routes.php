@@ -5,9 +5,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k/roles', 'namespace' => 'Mo
     /* logged users opertaions */
 	Route::group(['middleware' =>  'admin_auth:admin'], function()
     {
-		Route::get('/', function(){
-			return \Redirect::to('o4k/role');
-		});
+		 
+		Route::get('/', 'AdminRolesController@index');
 		Route::get('/AdminRolesList',['uses' => 'AdminRolesController@allRoles']);
 		Route::get('/create', 'AdminRolesController@create');
 		Route::post('/store', 'AdminRolesController@store');

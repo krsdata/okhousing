@@ -584,21 +584,24 @@ span.loaction {
         <?php } else{ ?>
 
             var zoom=12;
-        <?php } ?>
+        <?php }
 
+        $lat = $_GET['lat'];
+        $lng = $_GET['lang'];
+         ?>  
         var map = new google.maps.Map(document.getElementById('Mymap'), {
-          zoom: zoom,
+          zoom: 12,
           center: new google.maps.LatLng('{{$latmap}}', '{{$langmap}}'),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        map.setOptions({ minZoom: 5, maxZoom: 20 });
+        map.setOptions({ minZoom: 5, maxZoom: 12 });
 
-        var infowindow = new google.maps.InfoWindow();
-
+        
         var marker, i;
 
-         @if(count($LocationMarker) == 0)
+       @if(count($LocationMarker) == 0 || count($SearchList) ==0)
+       var infowindow = new google.maps.InfoWindow();
 
 
         var latLng = new google.maps.LatLng('{{$latmap}}', '{{$langmap}}');
@@ -607,6 +610,8 @@ span.loaction {
             draggable: true
         });
         marker.setMap(map);
+
+         
 
         // on drag pointer
           var geocoder = new google.maps.Geocoder();
@@ -620,6 +625,110 @@ span.loaction {
                         document.getElementById("searchLocation_").value  = results[0].formatted_address;
                         infoWindow.setContent(results[0].formatted_address);
                         infoWindow.open(map, marker);
+                         var latitude = results[0].geometry.location.lat();
+                         var longitude = results[0].geometry.location.lng();
+                         document.getElementById("lat_searchLocation").value = latitude;
+                         document.getElementById("lang_searchLocation").value = longitude;
+                        $("#lat_searchLocation_1").val(latitude);
+                        $("#lang_searchLocation_1").val(longitude);
+                        $(".CurrentCountrySearch").val($("#country_name").val());
+                        $("#lat").val(latitude);
+                        $("#lng").val(longitude);
+                        $('#SearchBarForm').submit();
+                      }
+                    }
+                });
+
+            });
+
+           // on click
+              google.maps.event.addListener(marker, 'click', function (event) {
+                  infoWindow.open(map, marker);
+                  geocoder.geocode({
+                      'latLng': event.latLng
+                    }, function(results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          if (results[0]) {
+                            document.getElementById("searchLocation_").value  = results[0].formatted_address;
+                             infoWindow.setContent(results[0].formatted_address);
+                            infoWindow.open(map, marker);
+
+                          }
+                        }
+                    });
+
+                });
+
+          var infoWindow = new google.maps.InfoWindow({
+
+          });
+ 
+
+       /* var geocoder =  new google.maps.Geocoder();
+          geocoder.geocode( { 'address': country_name = $("#country_name").val()}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                var latLng = new google.maps.LatLng(latitude, longitude);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(latitude, longitude),
+                    map: map,
+                });
+                map.setZoom(5);
+            }
+          });*/
+        @endif
+        var infowindow = new google.maps.InfoWindow();
+
+        @foreach($LocationMarker as $markers)  
+       // for (i = 0; i < locations.length; i++) { 
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng({{$markers['lat']}}, {{$markers['lang']}}),
+            map: map,
+            icon : "{{$markers['icon']}}",
+            title : "{{$markers['title']}}",
+             draggable: true
+          });
+        
+          marker.set("id", {{$markers['id']}});
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent("{{$markers['title']}}");
+              infowindow.open(map, marker);
+            }
+          })(marker, i));
+
+          marker.addListener('mouseover', function() {
+
+            $(".property-List").removeClass("activeProperty");
+            $("#property-"+marker.get("id")).addClass("activeProperty");
+        });
+
+           // on drag pointer
+          var geocoder = new google.maps.Geocoder();
+          google.maps.event.addListener(marker, 'dragend', function (event) {
+              infoWindow.open(map, marker);
+              geocoder.geocode({
+                  'latLng': event.latLng
+                }, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                      if (results[0]) {
+                        document.getElementById("searchLocation_").value  = results[0].formatted_address;
+                        infoWindow.setContent(results[0].formatted_address);
+                        infoWindow.open(map, marker);
+                       
+                        var latitude = results[0].geometry.location.lat();
+                         var longitude = results[0].geometry.location.lng();
+                         document.getElementById("lat_searchLocation").value = latitude;
+                         document.getElementById("lang_searchLocation").value = longitude;
+                        $("#lat_searchLocation_1").val(latitude);
+                        $("#lang_searchLocation_1").val(longitude);
+                        $(".CurrentCountrySearch").val($("#country_name").val());
+                        $("#lat").val(latitude);
+                        $("#lng").val(longitude);
+                        $('#SearchBarForm').submit();
                       }
                     }
                 });
@@ -648,47 +757,6 @@ span.loaction {
 
           });
 
-
-
-       /* var geocoder =  new google.maps.Geocoder();
-          geocoder.geocode( { 'address': country_name = $("#country_name").val()}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
-                var latLng = new google.maps.LatLng(latitude, longitude);
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(latitude, longitude),
-                    map: map,
-                });
-                map.setZoom(5);
-            }
-          });*/
-        @endif
-
-        @foreach($LocationMarker as $markers)
-       // for (i = 0; i < locations.length; i++) { 
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng({{$markers['lat']}}, {{$markers['lang']}}),
-            map: map,
-            icon : "{{$markers['icon']}}",
-            title : "{{$markers['title']}}"
-          });
-        
-          marker.set("id", {{$markers['id']}});
-
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              infowindow.setContent("{{$markers['title']}}");
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
-
-          marker.addListener('mouseover', function() {
-
-            $(".property-List").removeClass("activeProperty");
-            $("#property-"+marker.get("id")).addClass("activeProperty");
-        });
 
         @endforeach
 
@@ -719,6 +787,9 @@ span.loaction {
               document.getElementById("lat_searchLocation").value = lat;
               document.getElementById("lang_searchLocation").value = lng;
             });
+
+
+
 
     </script>
 
