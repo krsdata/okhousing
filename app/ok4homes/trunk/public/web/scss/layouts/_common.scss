@@ -1,0 +1,40 @@
+html {
+    font-size: 90% !important;
+}
+body {
+    font-size: inherit;
+    letter-spacing: 0.0629em;
+}
+.width75 {
+    width: 90% !important;
+}
+
+:focus {
+    outline: none !important;
+}
+
+h3 {
+    color: #272727;
+    margin: 0 0 40px 0;
+    padding: 30px 0 20px 0;
+    text-align: center;
+    position: relative;
+    background-color: none;
+    &:after {
+        content: "";
+        display: block;
+        height: 5px;
+        width: 100px;
+        position: absolute;
+        margin: 0 auto;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+    &.orange-line:after {
+        background: #feb63d;
+    }
+    &.green-line:after {
+        background: #37db67;
+    }
+}

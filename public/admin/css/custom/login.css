@@ -1,0 +1,9 @@
+#login_form .border-left-danger{
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #F44336;
+  font-size: 10px;
+}
+.validation-error-label:empty, .validation-valid-label:empty{
+	display: none!important;
+}

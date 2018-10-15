@@ -1,0 +1,112 @@
+section.advertise {
+    background: #feb63d;
+    padding: 40px 0;
+    .container {
+        display: flex;
+        .left-box {
+            width: 50%;
+            h5 {
+                color: #fff;
+                font-size: 32px;
+            }
+        }
+        .right-box {
+            width: 50%;
+            text-align: right;
+            .btn-link {
+                display: inline-block;
+                border: 1px solid #fff;
+                color: #fff;
+                font-size: 1.125em;
+                padding: 20px 40px;
+                border-radius: 8px;
+                text-decoration: none;
+                transition: all 0.4s;
+                -moz-transition: all 0.4s;
+                -webkit-transition: all 0.4s;
+                &:hover {
+                    background: #fff;
+                    color: #feb63d;
+                }
+            }
+
+        }
+    }
+}
+
+footer {
+    background: #606879;
+    padding: 40px 0 70px 0;
+    color: #fff;
+    .container {
+        display: flex;
+    }
+    &.inner {
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 20px 0;
+        &.fixed {
+            position: fixed;
+        }
+        .footer-box {
+            width: 100%;
+            .social {
+                margin-bottom: 0;
+                li {
+                    margin-bottom: 0;
+                }
+            }
+            p {
+                margin-bottom: 0;
+                padding: 10px 0 0 0;
+            }
+        }
+    }
+    .footer-box {
+        width: 20%;
+        display: inline-block;
+        vertical-align: top;
+        padding-right: 20px;
+        h4 {
+            font-size: 1.375em;
+            color: #fff;
+            margin-bottom: 50px;
+        }
+        a {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.813em;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        p {
+            margin-bottom: 10px;
+            font-size: 0.813em;
+        }
+        .social {
+            li {
+                display: inline-block;
+                vertical-align: top;
+                width: 30px;
+                height: 30px;
+                margin-bottom: 20px;
+                a {
+                    display: block;
+                    width: 100%;
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .grid-list {
+            a {
+                display: inline-block;
+                vertical-align: top;
+            }
+        }
+    }
+}
