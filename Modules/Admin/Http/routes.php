@@ -59,7 +59,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
         );
 
 
-          Route::bind('builder', function ($value, $route) {
+        Route::bind('builder', function ($value, $route) {
             return Modules\Admin\Entities\Builder::find($value);
         });
 
@@ -78,10 +78,26 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
                 ],
             ]
         );
-        
-        
-        
-        
+
+         Route::bind('project', function ($value, $route) {
+            return Modules\Admin\Entities\Project::find($value);
+        });
+
+        Route::resource(
+            '/project',
+            'ProjectController',
+            [
+                'names' => [
+                    'edit'    => 'project.edit',
+                    'show'    => 'project.show',
+                    'destroy' => 'project.destroy',
+                    'update'  => 'project.update',
+                    'index'   => 'project',
+                    'create'  => 'project.create',
+                    'store'   => 'project.store',
+                ],
+            ]
+        ); 
         
         
        Route::get('/dashboard', 'AdminLoginController@dashboard'); 

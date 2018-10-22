@@ -120,9 +120,9 @@
                 <div class="form-group  {{ $errors->first('builder_logo', ' has-error') }}">
                     <label class="control-label col-md-3"> Builder logo<span class="required"> * </span></label>
                     <div class="col-lg-9">
-                        @if(isset($builder_logo))
+                        @if(isset($builder->builder_logo))
                          <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src=" {{ $builder_logo ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;"> </div>
+                   <a href="{{url($builder->builder_logo)}}" target="_blank"> <img src=" {{ url($builder->builder_logo) ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;"> </a> </div>
                     @endif
                         <input type="file" class="file-input" name="builder_logo" class="form-control">
                          <span class="help-block" style="color:#e73d4a">{{ $errors->first('builder_logo', ':message') }}</span>
@@ -135,9 +135,9 @@
                 <div class="form-group  {{ $errors->first('builder_cover_picture', ' has-error') }}">
                     <label class="control-label col-md-3"> Builder cover picture <span class="required"> * </span></label>
                     <div class="col-md-9">
-                        @if(isset($builder_cover_picture))
+                        @if(isset($builder->builder_cover_picture))
                          <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src=" {{ $builder_cover_picture ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;"> </div>
+                  <a href="{{url($builder->builder_cover_picture)}}" target="_blank">  <img src=" {{ url($builder->builder_cover_picture) ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;"> </a> </div>
                     @endif
                         <input type="file" class="file-input" name="builder_cover_picture" class="form-control">
                          <span class="help-block" style="color:#e73d4a">{{ $errors->first('builder_cover_picture', ':message') }}</span>
@@ -150,9 +150,9 @@
                 <div class="form-group  {{ $errors->first('profile_picture', ' has-error') }}">
                     <label class="control-label col-md-3"> Profile Picture <span class="required"> * </span></label>
                     <div class="col-lg-9">
-                        @if(isset($url))
+                        @if(isset($builder->profile_picture))
                          <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src=" {{ $url ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;"> </div>
+                  <a href="{{url($builder->profile_picture)}}" target="_blank">  <img src="{{ url($builder->profile_picture) ?? 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image'}}" alt="" style="width: 200px; height: 150px;">  </a></div>
                     @endif
                      
                         <input type="file" class="file-input" name="profile_picture" class="form-control">
@@ -166,7 +166,7 @@
                   <div class="form-group pull-right ">
                 {!! Form::submit(' Save ', ['class'=>'btn  btn-primary text-white','id'=>'saveBtn']) !!}
 
-                 <a href="{{route('plan')}}">
+                 <a href="{{route('builder')}}">
             {!! Form::button('Back', ['class'=>'btn btn-warning text-white']) !!} </a>
                      </div>   
             </div> 

@@ -61,7 +61,15 @@
                 <ul class="hidden-ul" style="display: none;">
                     <li><a href="{{ URL::to('o4k/builder')}}" class="legitRipple">Builders List</a></li>
 		</ul>
-                </li>
+        </li>
+
+        <li ><a href="#"><i class="icon-home4"></i> <span>Project</span></a>
+                <ul class="hidden-ul" style="display: none;">
+                    <li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">Project List</a></li>
+		</ul>
+        </li>
+
+
 		<!--<li ><a href="{{URL('/o4k/utility')}}"><i class="icon-stack2"></i> <span>Utility</span></a></li>-->	
 		<li ><a href="{{URL('/o4k/owners')}}"><i class="icon-home4"></i> <span>Owners</span></a></li>
 
