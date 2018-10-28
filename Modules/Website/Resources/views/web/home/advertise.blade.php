@@ -117,7 +117,7 @@ $flag = $fcountry['flag'];
 
 .subscribe-section {
     padding: 40px 0;
-    background-color: #AF0808;
+    background-color: #0c629e;
 }
 .subscribe-section p {
     color: #fff;
@@ -161,7 +161,7 @@ $flag = $fcountry['flag'];
 		<h2>Subscribe our Newsletter</h2>
 		<!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sollicitudin fermentum dolor. Nunc nec augue urna.</p>-->
 		<div class="subscribe-form">
-		    <form>
+                    <form name="subscribeFrom">
                <input name="subscribe" class=" form-control" placeholder="your mail here" type="text">
                <button type="submit" value="submit">submit</button>
             </form>
@@ -172,3 +172,7 @@ $flag = $fcountry['flag'];
 	</div>
 </div>
 </div>
+
+<script>
+
+</script>

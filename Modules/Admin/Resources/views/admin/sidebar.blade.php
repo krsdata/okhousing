@@ -63,11 +63,34 @@
 		</ul>
         </li>
 
-        <li ><a href="#"><i class="icon-home4"></i> <span>Project</span></a>
-                <ul class="hidden-ul" style="display: none;">
-                    <li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">Project List</a></li>
+        <li class="">
+		<a href="#" class="has-ul legitRipple"><i class="icon-city"></i> <span>Projects</span></a>
+		<ul class="hidden-ul" style="display: none;">
+		
+		<li><a href="{{ URL::to('o4k/projects/amenities')}}" class="legitRipple">Amenities</a></li>
+
+
+		<li><a href="{{ URL::to('o4k/project_types')}}"  class="legitRipple" >Project Types </a></li>
+
+
+		<!--li><a href="{{ URL::to('o4k/property_list')}}" class="legitRipple">Property Lists</a></li-->
+		<li class="">
+			<a href="#" class="has-ul legitRipple">Project Lists</a>
+			<ul class="hidden-ul">
+				<li class="">
+					<ul class="hidden-ul" style="display: block;">
+						<li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">India Project Lists</a></li>
+						<li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">Thailand Project Lists</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="{{ URL::to('o4k/project_category')}}" class="legitRipple">Project Categories</a></li>
+		<li><a href="{{ URL::to('o4k/projects/building_unit')}}" class="legitRipple">Project Building Units</a></li>
+		<li><a href="{{ URL::to('o4k/projects/land_unit')}}" class="legitRipple">Project Land Units</a></li>
+		
 		</ul>
-        </li>
+	</li>
 
 
 		<!--<li ><a href="{{URL('/o4k/utility')}}"><i class="icon-stack2"></i> <span>Utility</span></a></li>-->	

@@ -17,8 +17,10 @@ use Modules\Admin\Entities\Plan;
 use Yajra\DataTables\DataTables;
 use \Validator;
 use DB;
-use \Illuminate\Support\Facades\Session; 
-use Storage;
+use \Illuminate\Support\Facades\Session;  
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+
 
 
 /**
@@ -100,8 +102,20 @@ class PlanController extends Controller
         $page_title  =  str_replace(['.'],' ', ucfirst(Route::currentRouteName()));
         $page_action =  str_replace('.',' ', ucfirst(Route::currentRouteName()));
         $url = null;
+
+        $showCountry = \DB::table('countries')
+                        ->where('deleted_at',NULL)
+                        ->pluck('country_id')
+                        ->toArray();
+
+        $country = \DB::table('all_countries')
+                    ->whereIn('id',$showCountry)
+                    ->get();
+        $th = "th";
+        $thai_html   = view::make('admin::plan.form_thai',compact('th'));
+ 
          
-        return view($this->createUrl, compact('plan','url', 'page_title', 'page_action'));  
+        return view($this->createUrl, compact('th','thai_html','plan','country','url', 'page_title', 'page_action'));  
     }
 
     /*
@@ -114,11 +128,14 @@ class PlanController extends Controller
         $regex = "/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/";
 
         $validator = Validator::make($request->all(), [
+            'country' => 'required',
             'name'       => 'required|unique:plans,name|min:3',
             'image_size'  => 'required|numeric',
             'features'  => 'required',
             'plan_image' => 'mimes:jpg,png,jpeg,svg,gif'
         ]);
+ 
+
         /** Return Error Message */
         if ($validator->fails()) {
             return redirect()
@@ -126,16 +143,21 @@ class PlanController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-
-
+         
         $plan->fill($request->all()); 
 
         if($request->file('plan_image')){
             $plan->plan_image = $request->file('plan_image')->store('plans');
+        } 
+
+        if($request->file('plan_image_th')){
+            $plan->plan_image_th = $request->file('plan_image_th')->store('plans');
         }    
-        
+
+        $plan->contents = json_encode($request->all());  
         $plan->save(); 
-         
+
+
         return Redirect::to($this->defaultUrl)
             ->with('flash_alert_notice', $this->createMessage);
     }
@@ -152,17 +174,65 @@ class PlanController extends Controller
         $page_action =  str_replace('.',' ', ucfirst(Route::currentRouteName()));
 
         $url =  url(Storage::url('app/'.$plan->plan_image));
+
+         $showCountry = \DB::table('countries')
+                        ->where('deleted_at',NULL)
+                        ->pluck('country_id')
+                        ->toArray();
+
+        $country = \DB::table('all_countries')
+                    ->whereIn('id',$showCountry)
+                    ->get();
+
+        $contents = json_decode($plan->contents); 
+       
+
+        $plan->country          =  $contents->country;
+        $plan->price_in_india   =  $contents->price_in_india;
+        $plan->price_in_thailand=  $contents->price_in_thailand;
+        $plan->features_th      =  $contents->features_th;
+        $plan->image_size_th    =  $contents->image_size_th;        
+        
+        $url_th = url(Storage::url('app/'.$plan->plan_image_th));
+
+        $th = "th"; 
+        $thai_html   = view::make('admin::plan.form_thai',compact('th','plan','url_th'));
          
-        return view($this->editUrl, compact('plan','url', 'page_title', 'page_action'));
+        return view($this->editUrl, compact('th','thai_html','plan','country','url', 'page_title', 'page_action','url_th'));  
+
     }
 
     public function update(Request $request, Plan $plan)
     {
         $plan->fill($request->all());
 
+        $regex = "/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/";
+
+        $validator = Validator::make($request->all(), [
+            'country' => 'required',
+            'name'       => 'required|min:3',
+            'image_size'  => 'required|numeric',
+            'features'  => 'required',
+            'plan_image' => 'mimes:jpg,png,jpeg,svg,gif'
+        ]);
+
+        /** Return Error Message */
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
         if($request->file('plan_image')){
             $plan->plan_image = $request->file('plan_image')->store('plans');
+        } 
+
+        if($request->file('plan_image_th')){
+            $plan->plan_image_th = $request->file('plan_image_th')->store('plans');
         }    
+
+        $plan->contents = json_encode($request->all());   
         
         $plan->save(); 
 
