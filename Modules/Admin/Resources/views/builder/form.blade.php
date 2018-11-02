@@ -8,7 +8,19 @@
                     
                         {!! Form::text('builder_name',null, ['class' => 'form-control','data-required'=>1])  !!} 
                         
-                        <span class="help-block" style="color:red">{{ $errors->first('builder_name', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
+                        <span class="help-block" style="color:red">{{ $errors->first('builder_name', ':message') }} </span>
+                     
+                </div> 
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group {{ $errors->first('builder_code', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
+                    <label class="control-label  ">Builer Code <span class="required"> * </span></label>
+                    
+                        {!! Form::text('builder_code',null, ['class' => 'form-control','data-required'=>1,'disabled'=>true])  !!} 
+                        
+                        <span class="help-block" style="color:red">{{ $errors->first('builder_code', ':message') }}   </span>
                      
                 </div> 
             </div>
@@ -63,7 +75,7 @@
             <div class="col-md-6">
                 <div class="form-group {{ $errors->first('latitude', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
                     <label class="control-label  ">Latitude <span class="required"> * </span></label>
-                        {!! Form::text('latitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'latitude'])  !!} 
+                        {!! Form::text('latitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'latitude','disabled'=>true])  !!} 
                         <span class="help-block" style="color:red">{{ $errors->first('latitude', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
                 </div> 
             </div>
@@ -71,7 +83,7 @@
              <div class="col-md-6">
                 <div class="form-group {{ $errors->first('longitude', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
                     <label class="control-label  ">Longitude <span class="required"> * </span></label>
-                        {!! Form::text('longitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'longitude'])  !!} 
+                        {!! Form::text('longitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'longitude','disabled'=>true])  !!} 
                         <span class="help-block" style="color:red">{{ $errors->first('longitude', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
                 </div> 
             </div>

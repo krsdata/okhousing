@@ -22,3 +22,37 @@
 		 	$('#lang_thailand').show();
 		 }
 	} 
+
+
+	function getBuilder(){
+	 var code = $('#builder_code').val();
+	 alert(code);
+	 if(!code){
+		$('.help-block').html('Please enter builder code');
+		return false;
+	 }
+
+		$.ajax({
+			type: "GET",
+			url:base_url+"/o4k/builder?code="+code,
+			dataType: "json",
+			async: false, 
+			data: {code:code},
+			processData: false,
+			contentType: false, 
+			success: function(response)
+			{   
+				var url  = response.profile;
+				var name =  response.data.builder_name;    
+			    $('img.burl').attr('src',url);
+				$('.bname').html(name);
+				 
+			},
+			error: function (request, textStatus, errorThrown) {
+
+					        
+
+			}
+		});
+
+	}

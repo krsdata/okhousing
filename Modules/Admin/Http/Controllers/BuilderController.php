@@ -66,6 +66,15 @@ class BuilderController extends Controller
         $page_title  = ucfirst(Route::currentRouteName());
         $page_action = 'View '.ucfirst(Route::currentRouteName());
 
+
+         if ($request->ajax()) {
+            $code           = $request->get('code');
+            $builder_code =  Builder::where('builder_code',trim($code))->first();
+             
+            echo json_encode(['status'=>true,'url'=>URL('/o4k/builder?code='.$code),'csrf' => csrf_token(),'data'=>$builder_code,'profile'=>url($builder_code->builder_cover_picture)]);
+            
+            exit();
+        }
         
         // Search by name ,email and group
         $search    = $request->get('search');
@@ -97,14 +106,17 @@ class BuilderController extends Controller
      * create plan method
      * */
 
-    public function create( )
+    public function create(Request $request,Builder $builder)
     {
         $countries=Countries::with(['created_countries'=>function($query) {$query->where('status', 1);}])->get();
         $page_title  =  str_replace(['.'],' ', ucfirst(Route::currentRouteName()));
         $page_action =  str_replace('.',' ', ucfirst(Route::currentRouteName()));
         $url = null;
-        $builder = null;
-         
+        $num = 1000;
+        $code = Builder::orderBy('id','desc')->first();
+        
+        $builder->builder_code = "BLD-".($num+1+($code->id));
+        
         return view($this->createUrl, compact('builder','url', 'page_title', 'page_action','countries'));  
     }
 
@@ -159,6 +171,11 @@ class BuilderController extends Controller
         $page_title  =  str_replace(['.'],' ', ucfirst(Route::currentRouteName()));
         $page_action =  str_replace('.',' ', ucfirst(Route::currentRouteName()));
         $countries=Countries::with(['created_countries'=>function($query) {$query->where('status', 1);}])->get();
+
+        $num = 1000;
+        if(empty($builder->builder_code)){
+            $builder->builder_code = "BLD-".($num+($builder->id));
+        }
         
          
         return view($this->editUrl, compact('builder','url', 'page_title', 'page_action','countries'));

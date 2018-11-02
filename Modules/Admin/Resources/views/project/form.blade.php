@@ -12,16 +12,16 @@
                 <div class="form-group col-md-6 " id="propertybox">
                     <label>Builder<span class="required"> * </span></label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id=" " name=" " placeholder="search by Builder ID Ex. BLD-10001">
+                        <input type="text" class="form-control" id="builder_code" name="builder_code" placeholder="search by Builder ID Ex. BLD-10001">
                         <span class="input-group-btn">
-                            <button class="btn btn-default legitRipple" type="button" id="Search_by_id"><i class="glyphicon glyphicon-search"></i></button>
+                            <button class="btn btn-default legitRipple" type="button" id="Search_by_id" onclick="getBuilder()"> <i class="glyphicon glyphicon-search"></i></button>
                         </span>
                     </div>
-                    <span  class="help-block">not found</span> 
+                    <span  class="help-block"></span> 
                 </div> 
                 <div class="col-md-4"> 
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSAz2_S45rnJTpba6XhwhmwHhlLHZ1tgmwD8gLjyoSRGj4fozZYg" class="img-responsive"  />
-                    <h3 >Builder Name</h3> 
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSAz2_S45rnJTpba6XhwhmwHhlLHZ1tgmwD8gLjyoSRGj4fozZYg" class="img-responsive burl"  height="200px" />
+                    <h3 class="bname"></h3> 
                 </div> 
                 
                 <div class="col-md-12" align="right">
