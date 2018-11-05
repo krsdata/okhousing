@@ -26,7 +26,8 @@
 
 	function getBuilder(){
 	 var code = $('#builder_code').val();
-	 alert(code);
+	 $('#Search_by_id').removeAttr('disabled');	
+	 $('.help-block').html('');
 	 if(!code){
 		$('.help-block').html('Please enter builder code');
 		return false;
@@ -37,22 +38,44 @@
 			url:base_url+"/o4k/builder?code="+code,
 			dataType: "json",
 			async: false, 
-			data: {code:code},
 			processData: false,
 			contentType: false, 
 			success: function(response)
 			{   
-				var url  = response.profile;
-				var name =  response.data.builder_name;    
-			    $('img.burl').attr('src',url);
-				$('.bname').html(name);
+				if(response.status==true){
+					var url  = response.profile;
+					var name =  response.data.builder_name;    
+				    $('img.burl').attr('src',url);
+					$('.bname').html(name);	
+					$('button').removeAttr('disabled');
+					$('input[type="submit"]').removeAttr('disabled');
+					$('.builder_name').html(name).css('color','#000');
+				}else{
+					var url  = response.profile;
+					$('.builder_name').html("Builder not found!").css('color','red');
+					$('button').attr('disabled','disabled');
+					$('input[type="submit"]').attr('disabled','disabled');
+					$('#Search_by_id').removeAttr('disabled');	
+				}
+				
 				 
 			},
 			error: function (request, textStatus, errorThrown) {
 
-					        
+				$('.bname').html("Invalid builder code");	        
 
 			}
 		});
 
 	}
+
+
+	$(function(e){
+		$('.pull-left a[data-toggle="tab"]').on('click',function() {
+			var href= $(this).attr('href');
+			 
+			$('a[href="'+href+'"]').parent().addClass('active');
+			$('a[href="'+href+'"]').parent().siblings().removeClass('active'); 
+			
+		});
+	});

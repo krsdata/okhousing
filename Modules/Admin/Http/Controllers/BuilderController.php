@@ -67,11 +67,16 @@ class BuilderController extends Controller
         $page_action = 'View '.ucfirst(Route::currentRouteName());
 
 
-         if ($request->ajax()) {
+         if ($request->ajax() || 1) {
             $code           = $request->get('code');
             $builder_code =  Builder::where('builder_code',trim($code))->first();
              
-            echo json_encode(['status'=>true,'url'=>URL('/o4k/builder?code='.$code),'csrf' => csrf_token(),'data'=>$builder_code,'profile'=>url($builder_code->builder_cover_picture)]);
+            if($builder_code){
+                echo json_encode(['status'=>true,'url'=>URL('/o4k/builder?code='.$code),'csrf' => csrf_token(),'data'=>$builder_code,'profile'=>url($builder_code->builder_cover_picture)]); 
+            } else{
+                 echo json_encode(['status'=>false,'url'=>URL('/o4k/builder?code='.$code),'csrf' => csrf_token(),'data'=>$builder_code,'profile'=>null]); 
+            }
+           
             
             exit();
         }

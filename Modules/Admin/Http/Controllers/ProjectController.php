@@ -101,6 +101,25 @@ class ProjectController extends Controller
         $page_title  =  str_replace(['.'],' ', ucfirst(Route::currentRouteName()));
         $page_action =  str_replace('.',' ', ucfirst(Route::currentRouteName()));
         $url = null;
+
+
+        $plans = "";
+        $category = "";
+        $type = "";
+        $area = "";
+        $unit = "";
+        $status = ["Vacant Land","Residential","Commercial"];
+
+        $status_image = "";
+        $image_video = "";
+        $extra_feature = "";
+        $amenities = [];
+        $neighbourhood = [];
+        $finishes = [];
+        
+
+
+
        
         return view($this->createUrl, compact('project','url', 'page_title', 'page_action'));  
     }
