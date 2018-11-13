@@ -1,3 +1,61 @@
+	
+	// prepare chart
+	function prepareChart(){
+
+		$('.no_of_floors').html("");
+		$('.no_of_flats').html("");
+		var c = 0;
+		var no_of_floors = $('input[name="no_of_floors"]').val();
+		var no_of_flats = $('input[name="no_of_flats"]').val();
+
+		var bhk_1 = $('input[name="1bhk"]').val();
+		var bhk_2 = $('input[name="2bhk"]').val();
+		var bhk_3 = $('input[name="3bhk"]').val();
+		var bhk_4 = $('input[name="4bhk"]').val();
+		var bhk_5 = $('input[name="5bhk"]').val();
+		var bhk_6 = $('input[name="6bhk"]').val();
+
+		var bhk = [];
+		$('.bhk').each(function(){
+
+			if ($(this).is(":checked")) { 
+			   bhk.push($(this).val()); 
+			}
+			 
+		}); 
+
+	
+		if(no_of_floors.length==0 || no_of_floors=="" ){
+			  c= 1
+			$('.no_of_floors').html('No of floor fields is required');
+		}else if($.isNumeric(no_of_floors)==false){
+			$('.no_of_floors').html('No of floor is Invalid');
+			  c= 1
+		}
+
+		if(no_of_flats.length==0 || no_of_flats=="" ){
+			$('.no_of_flats').html('No of flat fields is required');
+			  c= 1
+		}else if($.isNumeric(no_of_flats)==false){
+			$('.no_of_flats').html('No of flat is Invalid');
+			  c= 1
+		} 
+		
+		if(c==1){
+			return false;
+		}
+
+		$.ajax({
+			type: "GET",
+			url:base_url+"/o4k/project/prepareChart?flats="+no_of_flats+'&floors='+no_of_floors+'&bhk='+[bhk],
+			success: function(response)
+			{   
+				$('#prepareChart').html(response);
+			} 
+		}); 
+	}
+
+	// init map
 	function initMap(){
 		 
 		    var input = document.getElementById('location');
@@ -12,7 +70,71 @@
 		    $("#longitude").val(longitude);  
 
 		});
-    }
+	}
+	
+	function removevideoUrl(id){
+		$('#vdo_'+id).remove();
+	}
+	var vdo_id=1;
+	function videoUrl(){
+		
+		var html = '<div class="row" id="vdo_'+vdo_id+'">'+
+					'<div class="col-md-11">'+
+						'<div class="form-group">'+
+							'<label class="control-label ">Youtube URL </label>'+
+							'<input class="form-control" data-required="1" name="video_url[]" type="text">'+ 
+						'</div>'+
+					'</div>'+ 
+					'<div class="col-md-1">'+
+						'<button type="button" class=" btn bg-danger legitRipple pull-right" style="margin-top: 20px" onclick="removevideoUrl('+vdo_id+')">Remove</button>'+
+				   '</div>'+
+				'</div>'
+					;
+				vdo_id++;
+		$('#video_url').after(html);
+
+
+	}
+
+
+	function removeImage(id){
+		$('#img_'+id).remove();
+	}
+	var img_id=1;
+	function addImage(){
+		
+		var html = '<div class="row" id="vdo_'+img_id+'">'+
+						'<button type="button" class=" btn bg-danger legitRipple pull-right" onclick="removevideoUrl('+img_id+')">Remove</button>'+
+						'<div class="col-md-6">'+
+							'<div class="form-group">'+
+								'<label class="control-label  ">Status Date </label>'+
+								'<input class="form-control startdate date_'+img_id+'" data-required="1" data-date-format="dd/mm/yyyy"  aria-invalid="false" name="status_date[]" type="text">'+
+								'<span class="help-block" style="color:red"> </span>'+
+							'</div> '+
+						'</div>'+
+						'<div class="col-md-6">'+
+							'<div class="form-group">'+
+								'<label class="control-label  ">Status image </label>'+
+								'<input name="status_image[]" type="file">'+
+								'<span class="help-block" style="color:red"> </span>'+
+							'</div> '+
+						'</div> '+
+					'</div>';
+					;
+					
+		$('#statusImage').after(html); 
+
+		$('.date_'+img_id).datepicker({
+			todayBtn:  1,
+			autoclose: true,
+		}).on('changeDate', function (selected) {
+			var minDate = new Date(selected.date.valueOf());
+			$('#enddate').datepicker('setStartDate', minDate);
+		});
+ 
+		img_id++;
+	}
+
 
 
 	function changeCountry(id){
@@ -71,6 +193,31 @@
 
 
 	$(function(e){
+
+		$("#startdate").datepicker({
+			todayBtn:  1,
+			autoclose: true,
+		}).on('changeDate', function (selected) {
+			var minDate = new Date(selected.date.valueOf());
+			$('#enddate').datepicker('setStartDate', minDate);
+		});
+
+		$(".startdate").datepicker({
+			todayBtn:  1,
+			autoclose: true,
+		}).on('changeDate', function (selected) {
+			var minDate = new Date(selected.date.valueOf());
+			$('#enddate').datepicker('setStartDate', minDate);
+		});
+	
+		$("#enddate").datepicker()
+			.on('changeDate', function (selected) {
+				var maxDate = new Date(selected.date.valueOf());
+				$('#startdate').datepicker('setEndDate', maxDate);
+			});
+
+
+
 		$('.pull-left a[data-toggle="tab"]').on('click',function() {
 			var href= $(this).attr('href');
 			 

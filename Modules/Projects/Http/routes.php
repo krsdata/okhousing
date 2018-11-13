@@ -9,21 +9,13 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k/projects/area'], function(
 		Route::get('/AdminLandAreaList',['uses' => 'AdminLandAreaController@allprojectarea']);
 		Route::get('/create', 'AdminLandAreaController@create');
 		Route::post('/store', 'AdminLandAreaController@store');
-
 		Route::get('/edit/{id}', 'AdminLandAreaController@edit');
 		Route::post('/update/{id}', 'AdminLandAreaController@update');
 		Route::get('/destroy/{id}', 'AdminLandAreaController@destroy');
 		Route::get('/activate/{id}', 'AdminLandAreaController@activate');
 		Route::get('/deactivate/{id}', 'AdminLandAreaController@deactivate');
-
-
 		Route::get('/getlanguage/{countryid}', 'AdminLandAreaController@getlanguage');
         Route::get('/getlanguage_edit/{countryid}/{parent_id}', 'AdminLandAreaController@getlanguage_edit');
-
-
-
-
-
 	});
 	 
 });

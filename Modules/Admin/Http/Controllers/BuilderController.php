@@ -67,7 +67,7 @@ class BuilderController extends Controller
         $page_action = 'View '.ucfirst(Route::currentRouteName());
 
 
-         if ($request->ajax() || 1) {
+         if ($request->ajax()) {
             $code           = $request->get('code');
             $builder_code =  Builder::where('builder_code',trim($code))->first();
              

@@ -18,4 +18,14 @@ class Controller extends BaseController
 		Config::set('previous_url', URL::previous());
     }
 
+
+    public function successMessage($data){
+    	return Response::json($data);
+    }
+
+ 	public function errorMessage($data){
+    	return Response::json($data);
+    }
+
+
 }

@@ -66,29 +66,41 @@
                </div>
           @endif
 
+          @if ($errors->any())
+            <div class=" alert-danger alert"> <ul>   {!! implode('', $errors->all('<li>:message</li>')) !!} </ul>
+                </div>
+        @endif
+
     <div class="tab-pane active" id="Builder">
         <div class="col-md-12 row">
-            <div class="input-group">
-                                        <span class="input-group-addon"><i class="icon-calendar5"></i></span>
-                                        <input type="text" class="form-control pickadate-accessibility" placeholder="Try me&hellip;">
-                                    </div>
+            
                                     
             <h2> Builder Detail </h2>
             <hr>
             <div class=" col-md-6 " id="propertybox">
-                <label>Builder<span class="required"> * </span></label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="builder_code" name="builder_code" placeholder="search by Builder ID Ex. BLD-10001">
+                <label>Builder Id<span class="required"> * </span></label>
+                <div class="input-group {{ $errors->first('builder_code', ' has-error') }}">
+                    
+                     {!! Form::text('builder_code',null, ['class' => 'form-control','id'=>'builder_code',   'style' => 'resize:none','placeholder'=>"search by Builder ID Ex. BLD-1001"])  !!} 
+
+
+
                     <span class="input-group-btn">
                         <button class="btn btn-default legitRipple" type="button" id="Search_by_id" onclick="getBuilder()"> <i class="glyphicon glyphicon-search"></i></button>
                     </span>
                 </div>
                  <span  class="builder_name"></span> 
                 <span  class="help-block"></span> 
+                <span class="help-block" style="color:red">{{ $errors->first('builder_code', ':message') }} </span>
             </div> 
             <div class="col-md-4"> 
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSAz2_S45rnJTpba6XhwhmwHhlLHZ1tgmwD8gLjyoSRGj4fozZYg" class="img-responsive burl"  style="height: 150px" />
-                <h3 class="bname"></h3> 
+                @if(isset($builder))
+                <img src="{{url($builder->profile_picture)}}" class="img-responsive burl"  style="height: 150px" />
+                @else
+                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSAz2_S45rnJTpba6XhwhmwHhlLHZ1tgmwD8gLjyoSRGj4fozZYg" class="img-responsive burl"  style="height: 150px" />
+                @endif
+
+                <h3 class="bname">{{$builder->builder_name??''}}</h3> 
             </div> 
             <div class="col-md-12 pull-left">
              <a href="#Select_Plan" data-toggle="tab" aria-expanded="true">
@@ -107,29 +119,28 @@
             <h2>Plans </h2>
             <hr>
               <div class="col-md-6">
-                <div class="form-group ">
+                <div class="form-group {{ $errors->first('plan', ' has-error') }}">
                     <label class="control-label  ">Select Plan <span class="required"> * </span></label> 
-                    <select class="form-control"   name=" " id=" ">
-                        <option value="select" >select</option> 
-                    </select>
+                    {!!Form::select('plan', $plans, null, ['class' => 'form-control', 'id'=>"plans",'placeholder'=>'Select Plan'])!!}
+ 
                     <span class="help-block" style="color:red"> </span>
                 </div> 
             </div> 
         </div>
         <div class="col-md-12 pull-left">
-                 <a href="#Project_Details" data-toggle="tab" aria-expanded="true">
-                    <button type="button" class="btn btn-info pull-right legitRipple">
-                        Next
-                         <i class="icon-next position-right"></i>
-                     </button>
-                 </a>
-                 <a href="#Builder" data-toggle="tab" aria-expanded="true">
-                    <button type="button" class="btn btn-info pull-left legitRipple">
-                        Previous
-                         <i class="icon-next position-left"></i>
-                     </button>
-                 </a>
-             </div> 
+             <a href="#Project_Details" data-toggle="tab" aria-expanded="true">
+                <button type="button" class="btn btn-info pull-right legitRipple">
+                    Next
+                     <i class="icon-next position-right"></i>
+                 </button>
+             </a>
+             <a href="#Builder" data-toggle="tab" aria-expanded="true">
+                <button type="button" class="btn btn-info pull-left legitRipple">
+                    Previous
+                     <i class="icon-next position-left"></i>
+                 </button>
+             </a>
+         </div> 
     </div>
 
     <div class="tab-pane" id="Project_Details">
@@ -138,17 +149,30 @@
             <hr>
 
              <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group {{ $errors->first('name', ' has-error') }}">
                     <label class="control-label  ">Project Name <span class="required"> * </span></label>
-                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                    {!! Form::text('name',null, ['class' => 'form-control','data-required'=>1])  !!} 
                     <span class="help-block" style="color:red"> </span>
                 </div> 
             </div>  
             
-            <div class="col-md-6">
+          <!--   <div class="col-md-6">
                 <div class="form-group">
                     <label class="control-label  ">Project Grade  </label>
-                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                    {!! Form::text('grade_id',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                    <span class="help-block" style="color:red"> </span>
+                </div> 
+            </div>  -->
+
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label class="control-label  ">Grade <span class="required"> * </span></label> 
+                    <select class="form-control"   name="category" id="category">
+                        @foreach($grade as $result)
+                        <option value="{{$result->id}}"  style="margin-left: 100px" >{{$result->name}}</option> 
+                        @endforeach
+                    </select>
                     <span class="help-block" style="color:red"> </span>
                 </div> 
             </div> 
@@ -156,8 +180,10 @@
             <div class="col-md-6">
                 <div class="form-group ">
                     <label class="control-label  ">Category <span class="required"> * </span></label> 
-                    <select class="form-control"   name=" " id=" ">
-                        <option value="select" >select</option> 
+                    <select class="form-control"   name="category" id="category">
+                        @foreach($category as $result)
+                        <option value="{{$result->id}}"  style="margin-left: 100px" >{{$result->name}}</option> 
+                        @endforeach
                     </select>
                     <span class="help-block" style="color:red"> </span>
                 </div> 
@@ -166,8 +192,10 @@
             <div class="col-md-6">
                 <div class="form-group ">
                     <label class="control-label  ">Type <span class="required"> * </span></label> 
-                    <select class="form-control"   name=" " id=" ">
-                        <option value="select" >select</option> 
+                    <select class="form-control"   name="type" id=" ">
+                       @foreach($type as $result)
+                        <option value="{{$result->id}}"  style="margin-left: 100px" >{{$result->name}}</option> 
+                        @endforeach
                     </select>
                     <span class="help-block" style="color:red"> </span>
                 </div> 
@@ -176,9 +204,8 @@
             <div class="col-md-6">
                 <div class="form-group ">
                     <label class="control-label  ">Area <span class="required"> * </span></label> 
-                    <select class="form-control"   name=" " id=" ">
-                        <option value="select" >select</option> 
-                    </select>
+                       {!! Form::text('area',null, ['class' => 'form-control','data-required'=>1])  !!}
+                     
                     <span class="help-block" style="color:red"> </span>
                 </div> 
             </div> 
@@ -186,28 +213,39 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="control-label  ">Possession date  </label>
-                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                    {!! Form::text('possession_date',null, [
+                        'class' => 'form-control',
+                        'data-required'=>1,
+                        'data-date-format'=>"dd/mm/yyyy", 
+                        'id'=>"startdate",
+                        'aria-invalid'=>"false"
+                        ])  !!}  
+
+
+
                     <span class="help-block" style="color:red"> </span>
                 </div> 
-            </div>
+            </div> 
 
-            <div class="col-md-12  " align="right"  > 
-                <a href="#Property_Availability" data-toggle="tab" aria-expanded="true">
-                       
-                    <button type="button" class="btn btn-info legitRipple ">
-                        Next
-                        <i class="icon-next position-right"></i>
-                    </button>
-                </a>
 
-                <a href="#Select_Plan" data-toggle="tab" aria-expanded="true">
-                    <button type="button" class="btn btn-info pull-left legitRipple">
-                        Previous
-                         <i class="icon-next position-left"></i>
-                     </button>
-                 </a>
+        <div class="col-md-12 pull-left">
+             <a href="#Property_Availability" data-toggle="tab" aria-expanded="true">
+                <button type="button" class="btn btn-info pull-right legitRipple">
+                    Next
+                     <i class="icon-next position-right"></i>
+                 </button>
+             </a>
+             <a href="#Select_Plan" data-toggle="tab" aria-expanded="true">
+                <button type="button" class="btn btn-info pull-left legitRipple">
+                    Previous
+                     <i class="icon-next position-left"></i>
+                 </button>
+             </a>
+         </div> 
 
-            </div>
+
+
+
         </div>
     </div>
 
@@ -221,34 +259,34 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">No.Of Floors <span class="required"> * </span></label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
+                                    {!! Form::text('no_of_floors',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    <span class="help-block no_of_floors" style="color:red"> </span>
                                 </div> 
                             </div>  
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label  ">No.Of Flats <span class="required"> * </span></label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
+                                    {!! Form::text('no_of_flats',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    <span class="help-block no_of_flats" style="color:red"> </span>
                                 </div> 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label  ">Plot/Land area <span class="required"> * </span></label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    {!! Form::text('land_area',null, ['class' => 'form-control','data-required'=>1])  !!} 
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div> 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group ">
                                     <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                    <select class="form-control"   name=" " id=" ">
+                                    <select class="form-control"   name="unit" id="unit">
                                         <option value="select" >select</option> 
                                     </select>
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div>  
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group ">
                                     <label class="control-label  ">Project Status <span class="required"> * </span></label> 
                                     <select class="form-control"   name=" " id=" ">
@@ -257,451 +295,111 @@
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label  ">Location <span class="required"> * </span></label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
-                                </div> 
-                            </div>
+                            
+
+
+            <div class="col-md-3">
+                <div class="form-group {{ $errors->first('location', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
+                    <label class="control-label  ">Location <span class="required"> * </span></label>
+                        {!! Form::text('location',null, ['class' => 'form-control','data-required'=>1,'id'=>'location','onkeyup'=>'initMap()'])  !!} 
+                        <span class="help-block" style="color:red">{{ $errors->first('location', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
+                </div> 
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group {{ $errors->first('latitude', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
+                    <label class="control-label  ">Latitude <span class="required"> * </span></label>
+                        {!! Form::text('latitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'latitude'])  !!} 
+                        <span class="help-block" style="color:red">{{ $errors->first('latitude', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
+                </div> 
+            </div>
+
+             <div class="col-md-3">
+                <div class="form-group {{ $errors->first('longitude', ' has-error') }}  @if(session('field_errors')) {{ 'has-error' }} @endif">
+                    <label class="control-label  ">Longitude <span class="required"> * </span></label>
+                        {!! Form::text('longitude',null, ['class' => 'form-control','data-required'=>1,'id'=>'longitude'])  !!} 
+                        <span class="help-block" style="color:red">{{ $errors->first('longitude', ':message') }} @if(session('field_errors')) {{ 'The Name  already been taken!' }} @endif</span>
+                </div> 
+            </div>
+
+
+
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label  ">No.Of BHK <span class="required"> * </span></label>
                                     <div>
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry  CheckboxStyle" name="1bhk" value="1">
                                             <p style="margin-top: 3px">1</p>
                                         </label>
 
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success bhk text-success-600 modulecountry  CheckboxStyle" name="2bhk" value="2">
                                             <p style="margin-top: 3px">2</p>
                                         </label>
 
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success bhk  text-success-600 modulecountry  CheckboxStyle" name="3bhk" value="3">
                                             <p style="margin-top: 3px">3</p>
                                         </label>
 
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success bhk  text-success-600 modulecountry  CheckboxStyle" name="4bhk" value="4">
                                             <p style="margin-top: 3px">4</p>
                                         </label>
 
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success bhk  text-success-600 modulecountry  CheckboxStyle" name="5bhk" value="5">
                                             <p style="margin-top: 3px">5</p>
                                         </label>
                                         <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                            <input type="checkbox" class="checker border-success bhk text-success-600 modulecountry  CheckboxStyle" name="6bhk" value="6">
                                             <p style="margin-top: 3px">6</p>
                                         </label>
                                     </div>
                                 </div> 
                             </div>  
                             <div class="col-md-6 " align="center"  style="margin-top: 20px"> 
-                                <button type="button" class="btn btn-warning legitRipple">
+                                <button type="button" class="btn btn-warning legitRipple" onclick="prepareChart()">
                                     Prepare Availability Chart  
                                 </button>
                             </div>
                             <div class="col-md-12 " >
                                 <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px"></div>
                             </div>
-                            <div class="col-md-12 ">        
-                                <h5 class="panel-title">Availability Chart </h5>
-                                <br/>
-                                <div class="table-responsive">
-                                <table class="table">
-                                        <thead>
-                                                <tr>
-                                                        <th>Floor</th>
-                                                        <th>A</th>
-                                                        <th>B</th>
-                                                        <th>C</th>
-                                                </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>Ground</td>
-                                                         <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                            <!-- prepare chart -->
+                            <div id="prepareChart"> 
 
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                         <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                         <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-
-                                                </tr>
-
-                                                  <tr>
-                                                        <td>First</td>
-                                                         <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                         <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-
-                                                </tr>
-
-                                                  <tr>
-                                                        <td>Second</td>
-                                                        <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div> 
-                                                                <label class="checkbox-inline">  
-                                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-
-                                                                </label>
-                                                            </div>
-                                                        </td>
-
-                                                </tr>
-
-
-                                        </tbody>
-                                </table>
-                            </div> 
-                            </div> 
-                            <div class="col-md-12 " >
-                                <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
                             </div>
-                        </div>   
-                        <div class="row">
-                            <div class="col-md-12 " >
-                                <h5 class="panel-title">1 BHK </h5> 
-                                <button type="button" class=" btn bg-indigo legitRipple pull-right" style="margin-top: -20px">
-                                    ADD More 1 BHK  
-                                </button> 
-                                <br/>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Area <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Price <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Display <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                            <option>yes</option> 
-                                            <option>no</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">2D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">3D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Key Plan  </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                            </div>
+                            {!!  $prepareChart !!}
+                            <!-- end prepare chart -->
                             <div class="col-md-12 " >
                                 <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
                             </div>
                         </div> 
-                        <div class="row">
-                            <div class="col-md-12 " >
-                                <h5 class="panel-title">1 BHK </h5>   
-                                <button type="button" class=" btn bg-danger legitRipple pull-right" style="margin-top: -20px">
-                                    Remove 
-                                </button>
-                                <br/>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Area <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Price <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Display <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                            <option>yes</option> 
-                                            <option>no</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">2D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">3D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Key Plan  </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                            </div>
-                            <div class="col-md-12 " >
-                                <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
-                            </div>
-                        </div>  
-                        <div class="row">
-                            <div class="col-md-12 " >
-                                <h5 class="panel-title">2 BHK </h5> 
-                                <button type="button" class=" btn bg-indigo legitRipple pull-right" style="margin-top: -20px">
-                                    ADD More 2 BHK  
-                                </button> 
-                                <br/>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Area <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Price <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Display <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                            <option>yes</option> 
-                                            <option>no</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">2D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">3D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Key Plan  </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                            </div>
-                            <div class="col-md-12 " >
-                                <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-md-12 " >
-                                <h5 class="panel-title">2 BHK </h5>   
-                                <button type="button" class=" btn bg-danger legitRipple pull-right" style="margin-top: -20px">
-                                    Remove 
-                                </button> 
-                                <br/>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Area <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Price <span class="required"> * </span></label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-3">
-                                    <div class="form-group ">
-                                        <label class="control-label  ">Display <span class="required"> * </span></label> 
-                                        <select class="form-control"   name=" " id=" ">
-                                            <option value="select" >select</option> 
-                                            <option>yes</option> 
-                                            <option>no</option> 
-                                        </select>
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div> 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">2D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">3D Floor Plan </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label  ">Key Plan  </label>
-                                        {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                        <span class="help-block" style="color:red"> </span>
-                                    </div> 
-                                </div>  
-                            </div>
-                            <div class="col-md-12 " >
-                                <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
-                            </div>
-                        </div>       
-                        <div class="col-md-12  " align="right"  > 
-                            <a href="#Status_Image" data-toggle="tab" aria-expanded="true">
-                 
-                            <button type="button" class="btn btn-info legitRipple " >
+
+
+                        <div class="bhkChart">
+ 
+
+                         </div> 
+
+                    <div class="col-md-12 pull-left">
+                         <a href="#Status_Image" data-toggle="tab" aria-expanded="true">
+                            <button type="button" class="btn btn-info pull-right legitRipple">
                                 Next
-                                <i class="icon-next position-right"></i>
-                            </button>
-                        </a>
-                        
-                        <a href="#Project_Details" data-toggle="tab" aria-expanded="true">
+                                 <i class="icon-next position-right"></i>
+                             </button>
+                         </a>
+                         <a href="#Project_Details" data-toggle="tab" aria-expanded="true">
                             <button type="button" class="btn btn-info pull-left legitRipple">
                                 Previous
                                  <i class="icon-next position-left"></i>
                              </button>
-                        </a>
+                         </a>
+                     </div>  
 
-                    </div>  
                 </div>
             </div>
         </div>
@@ -713,60 +411,82 @@
             <hr>
         <div class="col-md-12">
                 <div class="panel-body">
-                        <div class="row">
-                            <button type="button" class=" btn bg-indigo legitRipple pull-right" >
+
+
+                        <div class="row" id="statusImage">
+                           <button type="button" class=" btn bg-indigo legitRipple pull-right" onclick="addImage()">
                                     Add more 
                             </button>  
+                        @if(isset($project->status_date)) 
+                            <?php $status_date = json_decode($project->status_date,true);   ?>
+                                @foreach($status_date as   $value)
+
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label  ">Date </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    <label class="control-label">Status Date </label>
+                                    {!! Form::text('status_date[]',$value??null, [
+                                        'class' => 'form-control startdate',
+                                        'data-required'=>1,
+                                        'data-date-format'=>"dd/mm/yyyy", 
+                                        'id'=>"startdate",
+                                        'aria-invalid'=>"false"
+                                        ])  !!}  
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label  ">Status image </label>
-                                    {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    <label class="control-label">Status image </label>
+                                    {!! Form::file('status_image[]',null, ['class' => 'form-control','data-required'=>1])  !!} 
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
-                            </div> 
+                            </div>
+
+                            @endforeach 
+
+                            @else
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Status Date </label>
+                                    {!! Form::text('status_date[]',null, [
+                                        'class' => 'form-control startdate',
+                                        'data-required'=>1,
+                                        'data-date-format'=>"dd/mm/yyyy", 
+                                        'id'=>"startdate",
+                                        'aria-invalid'=>"false"
+                                        ])  !!}  
+                                    <span class="help-block" style="color:red"> </span>
+                                </div> 
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Status image </label>
+                                    {!! Form::file('status_image[]',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                    <span class="help-block" style="color:red"> </span>
+                                </div> 
+                            </div>
+                            @endif
+
+
                         </div>
                         
-                        <div class="row">
-                            <button type="button" class=" btn bg-danger legitRipple pull-right" >
-                                    Remove 
-                            </button>  
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label  ">Date </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
-                                </div> 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label  ">Status image </label>
-                                    {!! Form::file(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
-                                </div> 
-                            </div> 
-                        </div> 
-                        <div class="col-md-12  " align="right"  > 
-                            <a href="#Image_Video_Gallery" data-toggle="tab" aria-expanded="true">
-                 
-                            <button type="button" class="btn btn-info legitRipple ">
+                    <div class="col-md-12 pull-left">
+                         <a href="#Image_Video_Gallery" data-toggle="tab" aria-expanded="true">
+                            <button type="button" class="btn btn-info pull-right legitRipple">
                                 Next
-                                <i class="icon-next position-right"></i>
-                            </button>
-                            </a>
-                            <a href="#Property_Availability" data-toggle="tab" aria-expanded="true">
+                                 <i class="icon-next position-right"></i>
+                             </button>
+                         </a>
+                         <a href="#Property_Availability" data-toggle="tab" aria-expanded="true">
                             <button type="button" class="btn btn-info pull-left legitRipple">
                                 Previous
                                  <i class="icon-next position-left"></i>
                              </button>
                          </a>
-                        </div>
+                     </div> 
+ 
                         
                     </div>
         </div>
@@ -777,49 +497,52 @@
             <hr>
         <div class="col-md-12">
             <div class="panel-body">
-                        <h5 class="panel-title">Image </h5> <br/>
-                        add any plugin with remove image option
-                        <div class="col-md-12 " >
-                                <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>
-                        </div>
-                        <h5 class="panel-title">Video </h5>
-                        <button type="button" class=" btn bg-indigo legitRipple pull-right" >
+                         
+                        <h5 class="panel-title">Video Url </h5>
+                        <button type="button" class=" btn bg-indigo legitRipple pull-right" onclick="videoUrl()">
                                     Add more 
                          </button>
                         <br/><br/><br/>
-                            <div class="row">
-                               
-                            <div class="col-md-11">
-                                <div class="form-group">
-                                    <label class="control-label  ">Youtube URL </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
-                                    <span class="help-block" style="color:red"> </span>
-                                </div> 
-                            </div> 
-                            <div class="col-md-1">
-                                <button type="button" class=" btn bg-danger legitRipple pull-right" style="margin-top: 20px">
-                                        Remove 
-                                </button>  
-                           </div>
-                              
-                        </div> 
-                        <div class="col-md-12  " align="right"  > 
-                            <a href="#About_Project" data-toggle="tab" aria-expanded="true">
-                 
-                            <button type="button" class="btn btn-info legitRipple ">
-                                Next
-                                <i class="icon-next position-right"></i>
-                            </button>
-                        </a>
+                        @if(isset($project->video_url))
+                        <div class="row" id="video_url"> 
+                            <?php $vdo = json_decode($project->video_url,true);   ?>
+                                @foreach($vdo as   $value)
+                                <div class="col-md-11">
+                                    <div class="form-group">
+                                        <label class="control-label  ">Youtube URL </label>
+                                        {!! Form::text('video_url[]',$value??null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                        <span class="help-block" style="color:red"> </span>
+                                    </div> 
+                                </div>  
+                            @endforeach
 
-                        <a href="#Status_Image" data-toggle="tab" aria-expanded="true">
+                        </div>
+                        @else
+                            <div class="row" id="video_url"> 
+                                <div class="col-md-11">
+                                    <div class="form-group">
+                                        <label class="control-label  ">Youtube URL </label>
+                                        {!! Form::text('video_url[]',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                        <span class="help-block" style="color:red"> </span>
+                                    </div> 
+                                </div>   
+                        </div>
+                        @endif 
+
+                    <div class="col-md-12 pull-left">
+                         <a href="#About_Project" data-toggle="tab" aria-expanded="true">
+                            <button type="button" class="btn btn-info pull-right legitRipple">
+                                Next
+                                 <i class="icon-next position-right"></i>
+                             </button>
+                         </a>
+                         <a href="#Status_Image" data-toggle="tab" aria-expanded="true">
                             <button type="button" class="btn btn-info pull-left legitRipple">
                                 Previous
                                  <i class="icon-next position-left"></i>
                              </button>
                          </a>
-
-                        </div>
+                     </div>  
                         
                     </div>
         </div>
@@ -836,7 +559,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label  ">About the project </label>
-                                    {!! Form::textarea(' ',null, ['class' => 'form-control','data-required'=>1,'rows' => 4, 'cols' => 5, 'style' => 'resize:none'])  !!} 
+                                    {!! Form::textarea('about_project',null, ['class' => 'form-control','data-required'=>1,'rows' => 4, 'cols' => 5, 'style' => 'resize:none'])  !!} 
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div> 
@@ -844,66 +567,99 @@
                                 <br/>
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="advantage[]" value="prize_on_request"
+
+                                        @if(isset($project->advantage))
+                                           @if(in_array('prize_on_request', json_decode($project->advantage,true)))
+                                            checked
+                                           @endif
+                                        @endif
+
+                                        >
                                         <p style="margin-top: 3px">Prize on Request </p>
                                    </label>
                                 </div> 
+                                
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">Area Sq.Ft Rate</p>
-                                   </label>
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">toll-free number</p>
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="advantage[]" value="toll_free_number"
+
+                                          @if(isset($project->advantage))
+                                           @if(in_array('toll_free_number', json_decode($project->advantage,true)))
+                                            checked
+                                           @endif
+                                        @endif
+
+                                        >
+                                        <p style="margin-top: 3px">Toll-free number</p>
                                    </label>
                                 </div>
                                  <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="advantage[]" value="price"
+                                         @if(isset($project->advantage))
+                                           @if(in_array('price', json_decode($project->advantage,true)))
+                                            checked
+                                           @endif
+                                        @endif
+                                        >
                                         <p style="margin-top: 3px">Price</p>
                                    </label>
                                 </div>
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="advantage[]" value="customer_care"
+
+                                         @if(isset($project->advantage))
+                                           @if(in_array('customer_care', json_decode($project->advantage,true)))
+                                            checked
+                                           @endif
+                                        @endif
+
+                                        >
                                         <p style="margin-top: 3px">Customer Care</p>
                                    </label>
                                 </div>
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="advantage[]"  value="emi_start"
+
+                                         @if(isset($project->advantage))
+                                           @if(in_array('emi_start', json_decode($project->advantage,true)))
+                                            checked
+                                           @endif
+                                        @endif
+
+                                        >
                                         <p style="margin-top: 3px">EMI Start</p>
                                    </label>
                                 </div>
                                 <br/>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label  ">Request for more ( comma (,) seprated )  </label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                        <label class="control-label">Request for more ( comma (,) seprated )  </label>
+
+                                        {!! Form::text("advantage[request]",$advantage_request??null, ['class' => 'form-control','data-required'=>1])  !!} 
                                         <span class="help-block" style="color:red"> </span>
                                     </div> 
                                 </div>
-                        </div> 
-                        
-                        <div class="col-md-12  " align="right"  > 
-                            <a href="#Amenities" data-toggle="tab" aria-expanded="true">
-                 
-                            <button type="button" class="btn btn-info legitRipple ">
+                        </div>
+
+
+                        <div class="col-md-12 pull-left">
+                         <a href="#Amenities" data-toggle="tab" aria-expanded="true">
+                            <button type="button" class="btn btn-info pull-right legitRipple">
                                 Next
-                                <i class="icon-next position-right"></i>
-                            </button>
-                        </a>
-                           <a href="#Image_Video_Gallery" data-toggle="tab" aria-expanded="true">
+                                 <i class="icon-next position-right"></i>
+                             </button>
+                         </a>
+                         <a href="#Image_Video_Gallery" data-toggle="tab" aria-expanded="true">
                             <button type="button" class="btn btn-info pull-left legitRipple">
                                 Previous
                                  <i class="icon-next position-left"></i>
                              </button>
                          </a>
-
-                        </div>
+                     </div>   
                         
                     </div>
         </div>
@@ -914,43 +670,44 @@
             <hr>
         <div class="col-md-12"> 
             <div class="row"> 
-                <div class="col-md-4"> 
+                @foreach($amenities as $key => $value)
+                <div class="col-md-3"> 
                     <label class="checkbox-inline">  
-                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                        <p style="margin-top: 3px">Amenities 1 </p>
+                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="amenities[]" value="{{$value->id}}"
+                       @if(isset($project->amenities))
+                        <?php $amn = array_search($value->id,json_decode($project->amenities)); ?>
+                       @if($amn===0 || $amn)
+                          checked
+                       @endif
+
+                       @endif
+                        >
+                        <p style="margin-top: 3px">{{$value->name}}   </p>
                    </label>
-                </div> 
-                <div class="col-md-4"> 
-                    <label class="checkbox-inline">  
-                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                        <p style="margin-top: 3px">Amenities 2 </p>
-                   </label>
-                </div>
-                <div class="col-md-4"> 
-                    <label class="checkbox-inline">  
-                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                        <p style="margin-top: 3px">Amenities 3 </p>
-                   </label>
-                </div> 
+                    
+                </div>  
+            @endforeach
+                 
             </div> 
-                        
-            <div class="col-md-12" align="right"> 
-                <br><br>
 
-                <a href="#Neighbourhood" data-toggle="tab" aria-expanded="true">
-                    <button type="button" class="btn btn-info legitRipple ">
+            <div class="col-md-12 pull-left">
+                  <br><br>
+                 <a href="#Neighbourhood" data-toggle="tab" aria-expanded="true">
+                    <button type="button" class="btn btn-info pull-right legitRipple">
                         Next
-                        <i class="icon-next position-right"></i>
-                    </button>
-                </a>
-
-                <a href="#About_Project" data-toggle="tab" aria-expanded="true">
+                         <i class="icon-next position-right"></i>
+                     </button>
+                 </a>
+                 <a href="#About_Project" data-toggle="tab" aria-expanded="true">
                     <button type="button" class="btn btn-info pull-left legitRipple">
                         Previous
                          <i class="icon-next position-left"></i>
-                    </button>
-                </a>  
-            </div> 
+                     </button>
+                 </a>
+             </div>   
+
+
+            
         </div>
     </div>
 
@@ -959,82 +716,54 @@
             <hr>
         <div class="col-md-12">
             <div class="panel-body">
-                        
-                            <div class="row"> 
+                        <div class="row"> 
+                            @foreach($neighbourhood as $key => $value)
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">church (in m) </p>
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="neighbourhood[]" value="{{$value->id}}"
+
+                                         @if(isset($project->neighbourhood))
+                                           @if(in_array($value->id, json_decode($project->neighbourhood,true)))
+                                            checked
+                                           @endif
+                                        @endif
+
+                                        >
+                                    <?php 
+                                    if(isset($project->neighbourhood_distance)){
+
+                                        $nbhd = json_decode($project->neighbourhood_distance,true);
+                                        }else{
+                                            $nbhd = []; 
+                                        } 
+                                    ?>
+
+
+                                        <p style="margin-top: 3px">{{$value->name}} (in m) </p>
                                    </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
+                                    {!! Form::text('neighbourhood_distance['.$value->id.']',$nbhd[$value->id]??null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
                                 </div>  
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">hindu_temple (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">mosque (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">supermarket (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">hospital (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">bus_station (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">atm (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">school (in m) </p>
-                                   </label>
-                                    {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
-                                </div>
-                                
-                            </div> 
-                        
-                        <div class="col-md-12  " align="right"  > 
-                           <a href="#Finishes" data-toggle="tab" aria-expanded="true">
-                 
-                            <button type="button" class="btn btn-info legitRipple ">
-                                Next
-                                <i class="icon-next position-right"></i>
-                            </button>
-                        </a>
-                        <a href="#Amenities" data-toggle="tab" aria-expanded="true">
-                            <button type="button" class="btn btn-info pull-left legitRipple">
-                                Previous
-                                 <i class="icon-next position-left"></i>
-                             </button>
-                         </a>
+                            @endforeach
+                            
                         </div> 
+
+
+            <div class="col-md-12 pull-left">
+                  
+                 <a href="#Finishes" data-toggle="tab" aria-expanded="true">
+                    <button type="button" class="btn btn-info pull-right legitRipple">
+                        Next
+                         <i class="icon-next position-right"></i>
+                     </button>
+                 </a>
+                 <a href="#Amenities" data-toggle="tab" aria-expanded="true">
+                    <button type="button" class="btn btn-info pull-left legitRipple">
+                        Previous
+                         <i class="icon-next position-left"></i>
+                     </button>
+                 </a>
+             </div>  
+                        
                     </div>
         </div>
     </div>
@@ -1046,43 +775,51 @@
              <div class="panel-body">
                         
                             <div class="row"> 
+                                
+                                @foreach($finishes as $key => $value)
                                 <div class="col-md-3"> 
                                     <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">Flooring </p>
+                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="finishes[]" value="{{$value->id}}"
+                                     @if(isset($project->amenities))
+                                       @if(in_array($value->id, json_decode($project->finishes,true)))
+                                        checked
+                                       @endif
+                                    @endif
+                                        >
+                                        <p style="margin-top: 3px">{{$value->name}} </p>
                                    </label> 
                                 </div>  
-                                <div class="col-md-3"> 
-                                    <label class="checkbox-inline">  
-                                        <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name=" " >
-                                        <p style="margin-top: 3px">Wall </p>
-                                   </label> 
-                                </div>
-                                <br/>
+
+                                @endforeach
+                                
+                                <br/><br/><br/><br/>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label  ">Request for more ( comma (,) seprated )  </label>
-                                        {!! Form::text(' ',null, ['class' => 'form-control','data-required'=>1])  !!} 
+                                        
+                                        {!! Form::text('finishes[request]',$finishes_request??null, ['class' => 'form-control','data-required'=>1])  !!} 
                                         <span class="help-block" style="color:red"> </span>
                                     </div> 
                                 </div>
                                  
-                            </div> 
-                        
-                        <div class="col-md-12  " align="right"  > 
-                           <a href="#Specification" data-toggle="tab" aria-expanded="true">
-                                <button type="button" class="btn btn-info legitRipple ">
+                            </div>
+
+                        <div class="col-md-12 pull-left">
+                              
+                             <a href="#Specification" data-toggle="tab" aria-expanded="true">
+                                <button type="button" class="btn btn-info pull-right legitRipple">
                                     Next
-                                    <i class="icon-next position-right"></i>
-                                </button>
-                                </a>
-                        <a href="#Neighbourhood" data-toggle="tab" aria-expanded="true">
-                            <button type="button" class="btn btn-info pull-left legitRipple">
-                                Previous
-                                <i class="icon-next position-left"></i>
-                            </button>
-                         </a>
-                </div>
+                                     <i class="icon-next position-right"></i>
+                                 </button>
+                             </a>
+                             <a href="#Neighbourhood" data-toggle="tab" aria-expanded="true">
+                                <button type="button" class="btn btn-info pull-left legitRipple">
+                                    Previous
+                                     <i class="icon-next position-left"></i>
+                                 </button>
+                             </a>
+                         </div>   
+                       
             </div>
         </div>
     </div>
@@ -1097,7 +834,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                     <label class="control-label  ">Specification </label>
-                    {!! Form::textarea(' ',null, ['class' => 'form-control','data-required'=>1,'rows' => 4, 'cols' => 5, 'style' => 'resize:none'])  !!} 
+                    {!! Form::textarea('specification',null, ['class' => 'form-control','data-required'=>1,'rows' => 4, 'cols' => 5, 'style' => 'resize:none'])  !!} 
                     <span class="help-block" style="color:red"> </span>
                     </div> 
                 </div> 

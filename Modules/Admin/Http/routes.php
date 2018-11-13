@@ -9,6 +9,10 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
     Route::get('/CheckLogin', 'AdminLoginController@CheckLogin');
     Route::get('/404', 'AdminLoginController@not_found');
 
+    Route::get('/project/prepareChart', 'ProjectController@prepareChart');
+
+
+
     
     /* logged admin user opertaions */
     Route::group(['middleware' =>  'admin_auth:admin'], function(){
@@ -36,6 +40,93 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
             ]
         );
 
+
+
+        
+
+
+        Route::bind('project/neighborhood', function ($value, $route) {
+            return Modules\Admin\Entities\Neighborhood::find($value);
+        });
+
+        Route::resource(
+            '/project/neighborhood',
+            'NeighborhoodController',
+            [
+                'names' => [
+                    'edit'    => 'neighborhood.edit',
+                    'show'    => 'neighborhood.show',
+                    'destroy' => 'neighborhood.destroy',
+                    'update'  => 'neighborhood.update',
+                    'index'   => 'neighborhood',
+                    'create'  => 'neighborhood.create',
+                    'store'   => 'neighborhood.store',
+                ],
+            ]
+        );
+
+
+        Route::bind('project/grade', function ($value, $route) {
+            return Modules\Admin\Entities\Grade::find($value);
+        });
+
+        Route::resource(
+            '/project/grade',
+            'GradeController',
+            [
+                'names' => [
+                    'edit'    => 'grade.edit',
+                    'show'    => 'grade.show',
+                    'destroy' => 'grade.destroy',
+                    'update'  => 'grade.update',
+                    'index'   => 'grade',
+                    'create'  => 'grade.create',
+                    'store'   => 'grade.store',
+                ],
+            ]
+        );
+
+
+        Route::bind('project/area', function ($value, $route) {
+            return Modules\Admin\Entities\Area::find($value);
+        });
+
+        Route::resource(
+            '/project/area',
+            'AreaController',
+            [
+                'names' => [
+                    'edit'    => 'area.edit',
+                    'show'    => 'area.show',
+                    'destroy' => 'area.destroy',
+                    'update'  => 'area.update',
+                    'index'   => 'area',
+                    'create'  => 'area.create',
+                    'store'   => 'area.store',
+                ],
+            ]
+        );
+
+
+        Route::bind('project/finishes', function ($value, $route) {
+            return Modules\Admin\Entities\Finishes::find($value);
+        });
+
+        Route::resource(
+            'project/finishes',
+            'FinishesController',
+            [
+                'names' => [
+                    'edit'    => 'finishes.edit',
+                    'show'    => 'finishes.show',
+                    'destroy' => 'finishes.destroy',
+                    'update'  => 'finishes.update',
+                    'index'   => 'finishes',
+                    'create'  => 'finishes.create',
+                    'store'   => 'finishes.store',
+                ],
+            ]
+        );
 
 
         Route::bind('plan', function ($value, $route) {

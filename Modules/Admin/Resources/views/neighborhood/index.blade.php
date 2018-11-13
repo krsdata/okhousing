@@ -14,7 +14,7 @@
                     <h6 class="panel-title"><b> {{$heading }} List</b><a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                     <div class="heading-elements">
                       <ul class="icons-list">
-                        <li> <a type="button" href="{{route('project.create')}}" class="btn btn-primary text-white btn-labeled btn-rounded "><b><i class="icon-plus3"></i></b> Add {{$heading }}<span class="legitRipple-ripple" ></span></a></li> 
+                        <li> <a type="button" href="{{route('neighborhood.create')}}" class="btn btn-primary text-white btn-labeled btn-rounded "><b><i class="icon-plus3"></i></b> Add neighborhood<span class="legitRipple-ripple" ></span></a></li> 
                       </ul>
                     </div>
                   </div> 
@@ -22,11 +22,11 @@
               <div class="panel-body"> 
                   <div class="table-toolbar">
                     <div class="row">
-                      <form action="{{route('project')}}" method="get" id="filter_data">
+                      <form action="{{route('neighborhood')}}" method="get" id="filter_data">
                      
                        
                       <div class="col-md-2">
-                          <input value="{{ (isset($_REQUEST['search']))?$_REQUEST['search']:''}}" placeholder="search by {{$heading }}" type="text" name="search" id="search" class="form-control" >
+                          <input value="{{ (isset($_REQUEST['search']))?$_REQUEST['search']:''}}" placeholder="search by neighborhood" type="text" name="search" id="search" class="form-control" >
                       </div>
                       <div class="col-md-2">
                           <input type="submit" value="Search" class="btn btn-primary form-control">
@@ -53,35 +53,31 @@
                     <thead>
                         <tr>
                             <th> Sno. </th>
-                            <th> Builder Code </th>
-                            <th> Project Name </th>
-                            <th> Location </th> 
-                            <th> Possession Date </th> 
+                            <th> Name </th>
+                            <th> Distance </th>
+                            <th> status </th>  
                             <th> Created date</th> 
-                            <th> Action</th> s
+                            <th> Action</th> 
                         </tr>
                     </thead>
                     <tbody>
-
-
-                      @foreach($projects as $key => $result)
+                    @foreach($neighborhood as $key => $result)
                         <tr>
                             <td> {{++$key}} </td>
-                            <td> {{ucfirst($result->builder_code)}} </td> 
-                             <td> {{ucfirst($result->name)}} </td>
-                            <td> {{ucfirst($result->location)}} </td> 
-                            <td> {{($result->possession_date)}} </td> 
+                            <td> {{ucfirst($result->name)}} </td>
+                            <td> {{$result->distance}} KM </td>
+                            <td>Active</td>
                               <td>
                                 {!! Carbon\Carbon::parse($result->created_at)->format($date_format); !!}
                           </td>
                                 
                       <td> 
                                     
-                            <a href="{{ route('project.edit',$result->id)}}" class="btn btn-primary btn-xs" style="margin-left: 20px">
+                            <a href="{{ route('neighborhood.edit',$result->id)}}" class="btn btn-primary btn-xs" style="margin-left: 20px">
                             <i class="fa fa-edit" title="edit"></i> Edit
                             </a>
 
-                            {!! Form::open(array('class' => 'form-inline pull-left deletion-form', 'method' => 'DELETE',  'id'=>'deleteForm_'.$result->id, 'route' => array('project.destroy', $result->id))) !!}
+                            {!! Form::open(array('class' => 'form-inline pull-left deletion-form', 'method' => 'DELETE',  'id'=>'deleteForm_'.$result->id, 'route' => array('neighborhood.destroy', $result->id))) !!}
 
                             <button class='delbtn btn btn-danger btn-xs' type="submit" name="remove_levels" value="delete" id="{{$result->id}}"><i class="fa fa-trash" title="Delete"></i> Delete
                             </button>
@@ -92,11 +88,10 @@
                            
                         </tr>
                        @endforeach
-                     
                         
                     </tbody>
                 </table>
-                 <div class="center" align="center">  {!! $projects->appends(['search' => isset($_GET['search'])?$_GET['search']:''])->render() !!}</div>
+                 <div class="center" align="center">  {!! $neighborhood->appends(['search' => isset($_GET['search'])?$_GET['search']:''])->render() !!}</div>
                 </div>
 
                 </div>

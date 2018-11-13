@@ -72,6 +72,13 @@
 
 		<li><a href="{{ URL::to('o4k/project_types')}}"  class="legitRipple" >Project Types </a></li>
 
+		<li><a href="{{ URL::to('o4k/project/neighborhood')}}"  class="legitRipple" >Neighborhood </a></li>
+
+		<li><a href="{{ URL::to('o4k/project/grade')}}"  class="legitRipple" >Grade </a></li>
+		<li><a href="{{ URL::to('o4k/project/area')}}"  class="legitRipple" >Area </a></li>
+		<li><a href="{{ URL::to('o4k/project/finishes')}}"  class="legitRipple" >Finishes </a></li>
+
+
 
 		<!--li><a href="{{ URL::to('o4k/property_list')}}" class="legitRipple">Property Lists</a></li-->
 		<li class="">
