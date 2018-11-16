@@ -1,9 +1,9 @@
 	
 	// prepare chart
-	function prepareChart(){
+	function prepareChart(){ 
 
-		$('.no_of_floors').html("");
-		$('.no_of_flats').html("");
+		$('.no_of_flats,.no_of_floors, .bhk_error').html(""); 
+
 		var c = 0;
 		var no_of_floors = $('input[name="no_of_floors"]').val();
 		var no_of_flats = $('input[name="no_of_flats"]').val();
@@ -15,15 +15,7 @@
 		var bhk_5 = $('input[name="5bhk"]').val();
 		var bhk_6 = $('input[name="6bhk"]').val();
 
-		var bhk = [];
-		$('.bhk').each(function(){
-
-			if ($(this).is(":checked")) { 
-			   bhk.push($(this).val()); 
-			}
-			 
-		}); 
-
+		
 	
 		if(no_of_floors.length==0 || no_of_floors=="" ){
 			  c= 1
@@ -40,6 +32,18 @@
 			$('.no_of_flats').html('No of flat is Invalid');
 			  c= 1
 		} 
+
+		var bhk = [];
+		$('.bhk').each(function(){
+			if ($(this).is(":checked")) { 
+			   bhk.push($(this).val()); 
+			}
+		});  
+
+	 	if(bhk.length==0){
+		 	$('.bhk_error').html('Please select no of BHK').css('color','red');
+		 	return false;
+	 	}
 		
 		if(c==1){
 			return false;

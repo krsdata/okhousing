@@ -20,21 +20,17 @@
                                  @for($i = 65 ; $i<65+$flats??1; $i++) 
                                  <td>
                                     <div> 
-                                        <label class="checkbox-inline">  
-                                            <div class="checker border-success text-success-600" >
-                                                <span>
-                                                    <input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle"
-                                                style=" position: absolute; top:-1 !important; left:-2 !important"
-                                                name="{{ chr($i) }}">
-                                                </span>
-                                            </div>
 
-                                        </label> 
+                                         <label class="checkbox-inline">  
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry  CheckboxStyleChart" name="{{ chr($i) }}" value="{{ chr($i) }}">
+                                        </label>
+
+
+
                                     </div>
                                 </td>
                                 
-                                @endfor  
-
+                                @endfor   
                         </tr>
 
                     @for($i=1; $i<=$floors??1; $i++)
@@ -42,11 +38,12 @@
                                 <td>{{$i}}<sup>{{date("S", mktime(0, 0, 0, 0, $i, 0))}}</sup> Floor</td>
                                 @for($c = 65 ; $c<65+$flats??1; $c++) 
                                  <td>
-                                    <div> 
-                                        <label class="checkbox-inline">  
-                                            <div class="checker border-success text-success-600"><span><input type="checkbox" class="checker border-success text-success-600 modulecountry  CheckboxStyle" name="{{ chr($c) }}"></span></div>
+                                    <div>  
 
-                                        </label> 
+                                         <label class="checkbox-inline">  
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry  CheckboxStyleChart" name="{{ chr($c) }}" value="{{ chr($c) }}">
+                                        </label>
+
                                     </div>
                                 </td>
                                 @endfor
@@ -60,3 +57,11 @@
         </table>
     </div> 
 </div>  
+<script type="text/javascript">
+     if($('.CheckboxStyleChart').length){ 
+        $(".CheckboxStyleChart").uniform({
+            radioClass: 'choice',
+            wrapperClass: "border-success text-success-600"
+        });
+    }
+</script>

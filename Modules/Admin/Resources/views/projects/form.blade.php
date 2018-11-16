@@ -358,6 +358,7 @@
                                             <p style="margin-top: 3px">6</p>
                                         </label>
                                     </div>
+                                    <label class="bhk_error"></label>
                                 </div> 
                             </div>  
                             <div class="col-md-6 " align="center"  style="margin-top: 20px"> 

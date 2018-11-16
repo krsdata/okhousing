@@ -247,7 +247,14 @@ class ProjectController extends Controller
         $advantage_request  = json_decode($project->advantage)->request;
         $finishes_request   = json_decode($project->finishes)->request;
 
-        return view($this->editUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','status','area','grade','builder','advantage_request','finishes_request'));  
+         $flats = 0;
+        $floors = 0;
+
+        $prepareChart   = ""; // view::make('admin::project.prepareChart',compact('flats','floors'));
+
+        $bhkChart = view::make('admin::project.bhkChart',compact('flats','floors'));
+
+        return view($this->editUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','status','area','grade','builder','advantage_request','finishes_request','bhkChart','prepareChart'));  
     }
 
     public function update(Request $request, $project)
