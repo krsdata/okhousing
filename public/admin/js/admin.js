@@ -1,13 +1,6 @@
 	//isDisabled
 
-	$(function() {
-
-	  $("input:disabled").closest("div").click(function() {
-	    $(this).find("input:disabled").attr("disabled", false).focus();
-	    alert(1);
-	  });
-
-	});
+	 
 
 	//editEnable
 
@@ -17,9 +10,9 @@
 	}
 
 
-	function isDisabledBtn(this){
+	function isDisabledBtn(thiscode){
 		
-	 	 // $(thiscode).parent().attr('class','checked');
+	 	 $(thiscode).parent().attr('class','checked');
 	}
 	//getCode
 
@@ -32,15 +25,16 @@
 		$('.code_error_'+typeCode).html("");
 		if(code==""){
 			$('.code_error_'+typeCode).html('Enter code<br>').css('color','red');
+			return false;
 		}
 
 		var code_f = $('.generate_code_'+f).val();
 
 		if(code!=code_f){
 			$('.code_error_'+typeCode).html('Invalid code<br>').css('color','red');
+			return false;
 		}
 
-		$('.check_code').is
 
 	   $('.check_code').each(function() {
 	        if ($(this).is(":checked")) {
