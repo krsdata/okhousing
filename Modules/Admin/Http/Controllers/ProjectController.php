@@ -22,6 +22,7 @@ use Modules\Projects\Entities\PropertyCategory as ProjectCategory;
 use Modules\Projects\Entities\PropertyCountryLangs as ProjectCountryLangs;
 use Modules\Projects\Entities\PropertyList as ProjectList;
 use Modules\Projects\Entities\PropertyType as ProjectType; 
+use Modules\Admin\Entities\ProjectStatus as Status;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response; 
 use Modules\Admin\Entities\Plan;
@@ -108,10 +109,11 @@ class ProjectController extends Controller
         $floors = $request->get('floors'); 
 
         $bhk =  explode(',',$request->get('bhk')); 
-
-        $bhks = view::make('admin::project.bhkChart',compact('bhk'));
-  
-        $prepareChart   = view::make('admin::project.prepareChart',compact('flats','floors','bhk'));
+        $unit = ProjectUnit::pluck('unit','id');
+        
+        $bhks = view::make('admin::project.bhkChart',compact('bhk','unit'));
+        
+        $prepareChart   = view::make('admin::project.prepareChart',compact('flats','floors','bhk','unit'));
        
         echo $prepareChart.$bhks;
          
@@ -133,8 +135,9 @@ class ProjectController extends Controller
         $category = ProjectCategory::where('parent_id',null)->get();
         $type = ProjectType::where('parent_id',null)->get();
         $area = Area::all();
-        $unit = ProjectUnit::all();
-        $status = ["Vacant Land","Residential","Commercial"];
+        $unit = ProjectUnit::pluck('unit','id');
+ 
+        $project_status =  Status::pluck('name','id');
 
         $status_image = "";
         $image_video = "";
@@ -152,7 +155,7 @@ class ProjectController extends Controller
 
         $bhkChart = view::make('admin::project.bhkChart',compact('flats','floors'));
        
-        return view($this->createUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','status','area','grade','flats','floors','prepareChart','bhkChart'));
+        return view($this->createUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','project_status','area','grade','flats','floors','prepareChart','bhkChart'));
     }
 
     /*
@@ -231,8 +234,8 @@ class ProjectController extends Controller
         $category = ProjectCategory::where('parent_id',null)->get();
         $type = ProjectType::where('parent_id',null)->get();
         $area = Area::all();
-        $unit = ProjectUnit::all();
-        $status = ["Vacant Land","Residential","Commercial"];
+        $unit = ProjectUnit::pluck('unit','id');
+        $project_status =  Status::pluck('name','id');
 
         $status_image = "";
         $image_video = "";
@@ -254,7 +257,7 @@ class ProjectController extends Controller
 
         $bhkChart = view::make('admin::project.bhkChart',compact('flats','floors'));
 
-        return view($this->editUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','status','area','grade','builder','advantage_request','finishes_request','bhkChart','prepareChart'));  
+        return view($this->editUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','project_status','unit','grade','builder','advantage_request','finishes_request','bhkChart','prepareChart'));  
     }
 
     public function update(Request $request, $project)

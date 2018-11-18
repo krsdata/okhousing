@@ -108,6 +108,27 @@ Route::group(['middleware' => 'web', 'prefix' => 'o4k', 'namespace' => 'Modules\
         );
 
 
+        Route::bind('project/status', function ($value, $route) {
+            return Modules\Admin\Entities\ProjectStatus::find($value);
+        });
+
+        Route::resource(
+            '/project/status',
+            'StatusController',
+            [
+                'names' => [
+                    'edit'    => 'status.edit',
+                    'show'    => 'status.show',
+                    'destroy' => 'status.destroy',
+                    'update'  => 'status.update',
+                    'index'   => 'status',
+                    'create'  => 'status.create',
+                    'store'   => 'status.store',
+                ],
+            ]
+        );
+
+
         Route::bind('project/finishes', function ($value, $route) {
             return Modules\Admin\Entities\Finishes::find($value);
         });

@@ -279,19 +279,16 @@
                             </div> 
                             <div class="col-md-4">
                                 <div class="form-group ">
-                                    <label class="control-label  ">Unit <span class="required"> * </span></label> 
-                                    <select class="form-control"   name="unit" id="unit">
-                                        <option value="select" >select</option> 
-                                    </select>
+                                    <label class="control-label  ">Unit <span class="required"> * </span></label>  
+
+                                    {!!Form::select('unit', $unit, null, ['class' => 'form-control'])!!}
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group ">
                                     <label class="control-label  ">Project Status <span class="required"> * </span></label> 
-                                    <select class="form-control"   name=" " id=" ">
-                                        <option value="select" >select</option> 
-                                    </select>
+                                    {!!Form::select('project_status', $project_status, null, ['class' => 'form-control'])!!}
                                     <span class="help-block" style="color:red"> </span>
                                 </div> 
                             </div>
@@ -325,7 +322,7 @@
 
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label  ">No.Of BHK <span class="required"> * </span></label>
                                     <div>
@@ -361,7 +358,7 @@
                                     <label class="bhk_error"></label>
                                 </div> 
                             </div>  
-                            <div class="col-md-6 " align="center"  style="margin-top: 20px"> 
+                            <div class="col-md-4 " align="center"  style="margin-top: 20px"> 
                                 <button type="button" class="btn btn-warning legitRipple" onclick="prepareChart()">
                                     Prepare Availability Chart  
                                 </button>

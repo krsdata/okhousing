@@ -1,4 +1,87 @@
-	
+	//isDisabled
+
+	$(function() {
+
+	  $("input:disabled").closest("div").click(function() {
+	    $(this).find("input:disabled").attr("disabled", false).focus();
+	    alert(1);
+	  });
+
+	});
+
+	//editEnable
+
+
+	function editEnable(val) { 
+ 	  	$('.type_'+val).removeAttr('disabled');
+	}
+
+
+	function isDisabledBtn(this){
+		
+	 	 // $(thiscode).parent().attr('class','checked');
+	}
+	//getCode
+
+	function getCode(code){
+		var typeCode = code;
+		var code = $('.code_'+code).val();
+
+		var f = code.charAt(0); // alerts 's'
+
+		$('.code_error_'+typeCode).html("");
+		if(code==""){
+			$('.code_error_'+typeCode).html('Enter code<br>').css('color','red');
+		}
+
+		var code_f = $('.generate_code_'+f).val();
+
+		if(code!=code_f){
+			$('.code_error_'+typeCode).html('Invalid code<br>').css('color','red');
+		}
+
+		$('.check_code').is
+
+	   $('.check_code').each(function() {
+	        if ($(this).is(":checked")) {
+	            $(this).val(code);
+	            $(this).attr("disabled","disabled");
+	            $(this).addClass("disabled");
+	             $(this).attr("onclick","isDisabledBtn(this)");
+	        }
+	    });
+
+
+ 
+	}
+
+//generateCode
+
+function generateCode(code,id){
+
+	let random = Math.random().toString(36).substr(2, 4);
+ 
+	$('.generate_code_'+id).val(code+random.toUpperCase(random));
+
+}
+
+// checkAll
+
+	function checkAll(ele) {
+	     
+	     var val = $(ele).val();
+	      
+	     var checkboxes = document.getElementsByClassName('type_'+val);
+
+	     if (ele.checked) {
+         	  $('.type_'+val).parent().attr('class','checked');
+         	}
+ 			 else {
+          $('.type_'+val).parent().attr('class','');
+        }
+	}
+
+
 	// prepare chart
 	function prepareChart(){ 
 
