@@ -173,18 +173,18 @@ class ProjectController extends Controller
             //'status_date.*.required' => 'Please enter project status!',
         ];
 
-        $request->validate([
-            'builder_code' => 'required', 
-            'plan'=>'required',
-            'name' => 'required',
-            'location' => 'required',
-            'about_project' => 'required',
-            'builder_code' => 'required|exists:builders,builder_code'
-           // 'status_date.*' => 'required',
-        ],$messages);
+        // $request->validate([
+        //     'builder_code' => 'required', 
+        //     'plan'=>'required',
+        //     'name' => 'required',
+        //     'location' => 'required',
+        //     'about_project' => 'required',
+        //     'builder_code' => 'required|exists:builders,builder_code'
+        //    // 'status_date.*' => 'required',
+        // ],$messages);
 
 
-       // dd($request->all());
+       dd($request->all());
 
         $table_cname = \Schema::getColumnListing('projects');
         $except = ['id','created_at','updated_at','deleted_at'];

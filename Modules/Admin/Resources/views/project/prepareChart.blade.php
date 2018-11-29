@@ -36,7 +36,7 @@
                                  <td style="padding-bottom: 20px;padding-top: 0px">
                                     <div> 
                                          <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($i) }} check_code CheckboxStyleChart type_{{chr($i)}}" name="floor_flat[{{ chr($i) }}]" value="{{ chr($i) }}_G">
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($i) }} check_code CheckboxStyleChart type_{{chr($i)}}" name="floor_flat[{{ chr($i) }}][0]" value="G">
                                         </label>
 
 
@@ -55,7 +55,8 @@
                                     <div>  
 
                                          <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($c) }} check_code CheckboxStyleChart type_{{chr($c)}}" name="floor_flat[{{ chr($c) }}]" value="{{ chr($c)}}_{{$i}}">
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($c) }} check_code CheckboxStyleChart type_{{chr($c)}}" name="floor_flat[{{ chr($c) }}][{{$i}}]" value="{{ chr($c)}}">
+                                            <span class="bhkValue"></span>
                                         </label>
 
                                     </div>

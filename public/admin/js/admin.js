@@ -6,7 +6,7 @@
 
 
 	function editEnable(val) { 
- 	  	$('.type_'+val).removeAttr('disabled');
+		$('.type_'+val).removeAttr('disabled');
 	}
 
 
@@ -15,7 +15,7 @@
 	 	 $(thiscode).parent().attr('class','checked');
 	}
 	//getCode
-
+	var disabled = 0;
 	function getCode(code){
 		var typeCode = code;
 		var code = $('.code_'+code).val();
@@ -35,17 +35,28 @@
 			return false;
 		}
 
-
-	   $('.check_code').each(function() {
-	        if ($(this).is(":checked")) {
-	            $(this).val(code);
+		$('.code_error_'+typeCode).html("");
+		
+	   	$('.type_'+typeCode).each(function() { 
+	        if ($(this).is(":checked") ) { //|| $(this).is(":disabled")
+	        	console.log('inside checked');
+	        	 disabled=1;
+	        	$('.type_'+typeCode).val(code);
+	        	$('.bhkValue').val(code);
 	            $(this).attr("disabled","disabled");
-	            $(this).addClass("disabled");
-	             $(this).attr("onclick","isDisabledBtn(this)");
+	            $(this).attr("onclick","isDisabledBtn(this)");
+	             $('#select_'+typeCode).removeAttr("disabled");
+	             $('#select_'+typeCode).removeClass("disabled");
+	            $('#select_'+typeCode).val(typeCode);
+	        }else{
+	        	if(disabled==0){
+	        		$('.code_error_'+typeCode).html('Select type '+typeCode+'<br>').css('color','red');
+	        	} 
+	        	
 	        }
 	    });
 
-
+	   	console.log(disabled+'-'+code+'-'+typeCode+'-'+code_f);
  
 	}
 
@@ -62,16 +73,44 @@ function generateCode(code,id){
 // checkAll
 
 	function checkAll(ele) {
-	     
-	     var val = $(ele).val();
-	      
-	     var checkboxes = document.getElementsByClassName('type_'+val);
+		alert('checked');
 
-	     if (ele.checked) {
+		
+	      
+	     var val = $(ele).val();
+
+
+	      	 $('.type_'+val).removeAttr('disabled');
+	      	 $('.type_'+val).removeClass('disabled'); 
+
+	      	if ($('type_'+val).is(":disabled")) { 
+	      		$('.type_'+val).removeAttr("disabled");
+	      	}
+console.log(val);
+	      	if (ele.checked==false) { 
+	      		$('#select_'+val).parent().attr('class','');
+	      		$('.type_'+val).removeAttr("disabled");
+	      		$('.type_'+val).parent().attr('class',''); 
+	      		$(this).parent().attr('class','');   
+	      		$('.type_'+val).parent().addClass("checkedNew_"+val);  
+	      		$('.type_'+val).parent().removeClass("checked");  
+
+	      	}else{
+	      		$('.type_'+val).parent().attr('class','checked');
+	      		$(this).parent().attr('class','checked');   
+	      		$('.type_'+val).parent().addClass('class','checked');
+
+	      	} 
+     	var checkboxes = document.getElementsByClassName('type_'+val);
+		$('.type_'+val).removeAttr("disabled");
+     	if (ele.checked) {
+     			$('checkedNew_'+val).addClass("checked");
          	  $('.type_'+val).parent().attr('class','checked');
+         	  $('.type_'+val).parent().addClass('checked');
+         	  $('.type_'+val).prop('checked', true);  
          	}
  			 else {
-          $('.type_'+val).parent().attr('class','');
+         		$('.type_'+val).parent().attr('class','');  
         }
 	}
 
