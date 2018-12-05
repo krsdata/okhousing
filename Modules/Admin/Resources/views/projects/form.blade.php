@@ -1,3 +1,8 @@
+
+<?php 
+ $ccode = $_REQUEST['country']??43;
+?>
+<input type="hidden" name="country_id" value="{{$ccode}}">
 <fieldset class="step ui-formwizard-content" id="step1" style="display: block; margin-left: 30px">
    <style type="text/css">
        .col-md-12 > h2, .tab-pane > h2 {
@@ -322,7 +327,7 @@
 
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label  ">No.Of BHK <span class="required"> * </span></label>
                                     <div>
@@ -371,6 +376,7 @@
 
                             </div>
                             {!!  $prepareChart !!}
+                            {!!  $bhkChart !!}
                             <!-- end prepare chart -->
                             <div class="col-md-12 " >
                                 <div style="height: 2px;width: 100%;background-color: #2196F3;margin-bottom: 20px;margin-top: 20px"></div>

@@ -86,8 +86,8 @@
 			<ul class="hidden-ul">
 				<li class="">
 					<ul class="hidden-ul" style="display: block;">
-						<li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">India Project Lists</a></li>
-						<li><a href="{{ URL::to('o4k/project')}}" class="legitRipple">Thailand Project Lists</a></li>
+						<li><a href="{{ URL::to('o4k/project?country=43')}}" class="legitRipple">India Project Lists</a></li>
+						<li><a href="{{ URL::to('o4k/project?country=95')}}" class="legitRipple">Thailand Project Lists</a></li>
 					</ul>
 				</li>
 			</ul>

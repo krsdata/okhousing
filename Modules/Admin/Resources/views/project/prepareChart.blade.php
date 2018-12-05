@@ -18,7 +18,7 @@
                             <br>
 
                             <p>
-                                Code <br><input type="text" name="code" class="form-control code_{{chr($i)}}">
+                                Code <br><input type="text" name="code[{{chr($i)}}]" class="form-control code_{{chr($i)}}" required="true">
                                 <i class="fas fa-paper-plane" ></i>
                             </p> <span class="code_error_{{chr($i)}}"></span>
                             <button class="btn btn-success" type="button" onclick="getCode('{{chr($i)}}')"><i style="font-size:21px" class="icon-paperplane">Ok</i></button>
@@ -36,7 +36,7 @@
                                  <td style="padding-bottom: 20px;padding-top: 0px">
                                     <div> 
                                          <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($i) }} check_code CheckboxStyleChart type_{{chr($i)}}" name="floor_flat[{{ chr($i) }}]" value="{{ chr($i) }}_G">
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($i) }} check_code CheckboxStyleChart type_{{chr($i)}}" name="floor_flat[{{ chr($i) }}][0]" value="G" title="Ground">
                                         </label>
 
 
@@ -55,7 +55,8 @@
                                     <div>  
 
                                          <label class="checkbox-inline">  
-                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($c) }} check_code CheckboxStyleChart type_{{chr($c)}}" name="floor_flat[{{ chr($c) }}]" value="{{ chr($c)}}_{{$i}}">
+                                            <input type="checkbox" class="checker border-success  bhk text-success-600 modulecountry {{ chr($c) }} check_code CheckboxStyleChart type_{{chr($c)}}" name="floor_flat[{{ chr($c) }}][{{$i}}]" value="{{ chr($c)}}" title="{{ chr($c)}}" id="type_{{chr($c)}}"> 
+                                            <span class="bhkValue_type_{{chr($c)}}"></span>
                                         </label>
 
                                     </div>

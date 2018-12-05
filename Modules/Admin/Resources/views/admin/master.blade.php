@@ -56,7 +56,7 @@ var base_url = "{{URL::to('/')}}";
 <script type="text/javascript" src="{{asset('public/admin/js/bootstrap-datepicker.min.js')}}"></script> 
 
 <script type="text/javascript" src="{{asset('public/admin/js/admin.js')}}"></script>
-
+<script type="text/javascript" src="{{asset('public/admin/js/plugins/forms/styling/uniform.min.js')}}"></script>
 </head>
 
 <body class="navbar-bottom">

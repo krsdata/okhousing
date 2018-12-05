@@ -36,5 +36,24 @@ class Admin extends Authenticatable
             return false;
         }
     }
+
+    public static function uploadMultiFiles($requestFile,$location,$fileName){
+
+        try {
+            if ($requestFile) {
+                $photo = $requestFile;
+                $destinationPath = storage_path('uploads/project/'.$location); 
+                $photo->move($destinationPath, time() . $photo->getClientOriginalName());
+                $file_name = time() . $photo->getClientOriginalName();
+                
+                return  'storage/uploads/project/'.$location.'/' . $file_name;
+            //$request->merge(['photo'=>$photo_name]);
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
      
 }

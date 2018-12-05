@@ -73,7 +73,6 @@ class ProjectController extends Controller
         $page_title  = ucfirst(Route::currentRouteName());
         $page_action = 'View '.ucfirst(Route::currentRouteName());
 
-        
         // Search by name ,email and group
         $search    = $request->get('search');
         $status    = $request->get('status'); 
@@ -90,7 +89,6 @@ class ProjectController extends Controller
                     $status =  ($status == 'active')?1:0;
                     $query->Where('status', $status);
                 }
-
                  
             })->Paginate($this->record_per_page);
         } else {
@@ -177,30 +175,89 @@ class ProjectController extends Controller
             'builder_code' => 'required', 
             'plan'=>'required',
             'name' => 'required',
-            'location' => 'required',
-            'about_project' => 'required',
+            'location' => 'required', 
             'builder_code' => 'required|exists:builders,builder_code'
            // 'status_date.*' => 'required',
         ],$messages);
+ 
 
 
-       // dd($request->all());
+        $flat_plans = [];
+        $availability_chart = [];
+
+        for($i=1;$i<=6;$i++){
+
+
+            if($request->get($i.'bhk_area')){
+                $flat_plans['total_bhk'] = $i;
+                $flat_plans[$i.'bhk_area'] = $request->get($i.'bhk_area');
+            }
+
+            if($request->get($i.'bhk_unit')){
+               $flat_plans[$i.'bhk_unit'] = $request->get($i.'bhk_unit');
+            }
+
+            if($request->get($i.'bhk_price')){
+                $flat_plans[$i.'bhk_price'] = $request->get($i.'bhk_price');
+            }
+
+            if($request->get($i.'bhk_display')){
+                $flat_plans[$i.'bhk_display'] = $request->get($i.'bhk_display');
+            }
+
+            if($request->get('generate_code_'.$i)){
+                $flat_plans['generate_code_'.$i] = $request->get('generate_code_'.$i);
+            }
+
+            
+              
+            $bhk_flats = $request->file($i.'bhk_flats');
+            
+            if($bhk_flats){ 
+                foreach ($bhk_flats as $key => $result) {  
+                    $flat_plans[$i.'bhk_flats'][$key] = Admin::uploadMultiFiles($result, 'plans' ,$key);
+                } 
+            }else{
+                continue;
+            }
+        }
+        if($request->get('code')){
+            $availability_chart['code'] = $request->get('code');
+        }
+        
+        if($request->get('floor_flat')){
+
+            $availability_chart['floor_flat'] = $request->get('floor_flat');
+        }    
+
+          $status_image = [];
+          $status_images = $request->file('status_image');
+            
+            if($status_images){ 
+                foreach ($status_images as $key => $result) {  
+                    $status_image[] = Admin::uploadMultiFiles($result, 'statusImage' ,'status_image_'.$key);
+                } 
+            } 
+
+            
+        $project->status_image = json_encode($status_image);
+
+        $project->flat_plans = json_encode($flat_plans);
+        $project->availability_chart = json_encode($availability_chart);
+        
 
         $table_cname = \Schema::getColumnListing('projects');
-        $except = ['id','created_at','updated_at','deleted_at'];
+
+        $except = ['id','created_at','updated_at','deleted_at','1bhk_flats','2bhk_flats','3bhk_flats','4bhk_flats','5bhk_flats','6bhk_flats'];
         
         foreach ($table_cname as $key => $value) {
            
            if(in_array($value, $except )){
                 continue;
            } 
-           if($request->file($value) && is_array($request->file($value))){
-                $img_url = [];
-                foreach ($request->file($value) as $key => $result) {
-                    $img_url[] = Admin::uploadImage($request, 'project' ,$result);
-                }
-
-                $project->$value = json_encode($img_url);
+           if($request->file($value) && !is_array($request->file($value))){
+                $img_url = []; 
+                $project->$value = Admin::uploadImage($request, 'project' ,$result); 
 
            }else if(is_array($request->get($value))){
                 $project->$value = json_encode($request->get($value));
@@ -208,7 +265,7 @@ class ProjectController extends Controller
                 $project->$value = $request->get($value);
            }
            
-        } 
+        }  
 
          $project->save(); 
          
@@ -250,12 +307,35 @@ class ProjectController extends Controller
         $advantage_request  = json_decode($project->advantage)->request;
         $finishes_request   = json_decode($project->finishes)->request;
 
-         $flats = 0;
-        $floors = 0;
+        $flats = $project->no_of_flats;
+        $floors = $project->no_of_floors;
 
-        $prepareChart   = ""; // view::make('admin::project.prepareChart',compact('flats','floors'));
 
-        $bhkChart = view::make('admin::project.bhkChart',compact('flats','floors'));
+         $bhk = []; 
+
+        for($i=1;$i<=6;$i++){
+            $bh = $i.'bhk'; 
+            if($project->$bh!=null){
+                 $bhk[] =   $project->$bh;
+            } 
+        } 
+
+        $flat_plans = json_decode($project->flat_plans);
+         
+        foreach ($flat_plans as $key => $value) {
+           $project->$key = $value;
+        }
+        
+        $unit = ProjectUnit::pluck('unit','id');
+        
+        $bhkChart = view::make('admin::project.bhkChart',compact('bhk','unit','project'));
+        
+        $prepareChart   = view::make('admin::project.prepareChart',compact('flats','floors','bhk','unit','project'));
+
+
+       
+
+       // $bhkChart = view::make('admin::project.bhkChart',compact('flats','floors'));
 
         return view($this->editUrl, compact('project','url', 'page_title', 'page_action','finishes','neighbourhood','amenities','plans','category','type','unit','project_status','unit','grade','builder','advantage_request','finishes_request','bhkChart','prepareChart'));  
     }
@@ -275,8 +355,7 @@ class ProjectController extends Controller
             'builder_code' => 'required', 
             'plan'=>'required',
             'name' => 'required',
-            'location' => 'required',
-            'about_project' => 'required',
+            'location' => 'required', 
             'builder_code' => 'required|exists:builders,builder_code'
            // 'status_date.*' => 'required',
         ],$messages);
@@ -284,21 +363,82 @@ class ProjectController extends Controller
 
        // dd($request->all());
 
+        $flat_plans = [];
+        $availability_chart = [];
+
+        for($i=1;$i<=6;$i++){
+
+
+            if($request->get($i.'bhk_area')){
+                $flat_plans['total_bhk'] = $i;
+                $flat_plans[$i.'bhk_area'] = $request->get($i.'bhk_area');
+            }
+
+            if($request->get($i.'bhk_unit')){
+               $flat_plans[$i.'bhk_unit'] = $request->get($i.'bhk_unit');
+            }
+
+            if($request->get($i.'bhk_price')){
+                $flat_plans[$i.'bhk_price'] = $request->get($i.'bhk_price');
+            }
+
+            if($request->get($i.'bhk_display')){
+                $flat_plans[$i.'bhk_display'] = $request->get($i.'bhk_display');
+            }
+
+            if($request->get('generate_code_'.$i)){
+                $flat_plans['generate_code_'.$i] = $request->get('generate_code_'.$i);
+            }
+
+            
+              
+            $bhk_flats = $request->file($i.'bhk_flats');
+            
+            if($bhk_flats){ 
+                foreach ($bhk_flats as $key => $result) {  
+                    $flat_plans[$i.'bhk_flats'][$key] = Admin::uploadMultiFiles($result, 'plans' ,$key);
+                } 
+            }else{
+                continue;
+            }
+        }
+        if($request->get('code')){
+            $availability_chart['code'] = $request->get('code');
+        }
+        
+        if($request->get('floor_flat')){
+
+            $availability_chart['floor_flat'] = $request->get('floor_flat');
+        }    
+
+        $status_image = [];
+         $status_images = $request->file('status_image');
+            
+            if($status_images){ 
+                foreach ($status_images as $key => $result) {  
+                    $status_image[] = Admin::uploadMultiFiles($result, 'statusImage' ,'status_image_'.$key);
+                } 
+            } 
+
+            
+        $project->status_image = json_encode($status_image);
+
+        $project->flat_plans = json_encode($flat_plans);
+        $project->availability_chart = json_encode($availability_chart);
+        
+
         $table_cname = \Schema::getColumnListing('projects');
-        $except = ['id','created_at','updated_at','deleted_at'];
+
+        $except = ['id','created_at','updated_at','deleted_at','1bhk_flats','2bhk_flats','3bhk_flats','4bhk_flats','5bhk_flats','6bhk_flats'];
         
         foreach ($table_cname as $key => $value) {
            
            if(in_array($value, $except )){
                 continue;
            } 
-           if($request->file($value) && is_array($request->file($value))){
-                $img_url = [];
-                foreach ($request->file($value) as $key => $result) {
-                    $img_url[] = Admin::uploadImage($request, 'project' ,$result);
-                }
-
-                $project->$value = json_encode($img_url);
+           if($request->file($value) && !is_array($request->file($value))){
+                $img_url = []; 
+                $project->$value = Admin::uploadImage($request, 'project' ,$result); 
 
            }else if(is_array($request->get($value))){
                 $project->$value = json_encode($request->get($value));
@@ -306,9 +446,9 @@ class ProjectController extends Controller
                 $project->$value = $request->get($value);
            }
            
-        } 
+        }  
 
-         $project->save(); 
+        $project->save(); 
          
         return Redirect::to($this->defaultUrl)
             ->with('flash_alert_notice', $this->createMessage);
