@@ -54,6 +54,7 @@
                         <tr>
                             <th> Sno. </th>
                             <th> Builder Name </th>
+                             <th> Builder Code </th>
                             <th> Email </th>
                             <th> Mobile </th> 
                             <th> Created date</th> 
@@ -65,6 +66,7 @@
                         <tr>
                             <td> {{++$key}} </td>
                             <td> {{ucfirst($result->builder_name)}} </td> 
+                             <td> {{ucfirst($result->builder_code)}} </td> 
                              <td> {{ucfirst($result->email)}} </td>
                             <td> {{ucfirst($result->mobile)}} </td> 
                             
