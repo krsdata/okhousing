@@ -19,6 +19,8 @@
                     <label class="control-label  ">Builer Code <span class="required"> * </span></label>
                     
                         {!! Form::text('builder_code',null, ['class' => 'form-control','data-required'=>1,'disabled'=>true])  !!} 
+
+                        {!! Form::hidden('builder_code',null, ['class' => 'form-control','data-required'=>1])  !!} 
                         
                         <span class="help-block" style="color:red">{{ $errors->first('builder_code', ':message') }}   </span>
                      
