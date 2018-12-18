@@ -270,7 +270,7 @@
                             </div>  
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label  ">No.Of Flats <span class="required"> * </span></label>
+                                    <label class="control-label  ">No.of flat per floor <span class="required"> * </span></label>
                                     {!! Form::text('no_of_flats',null, ['class' => 'form-control','data-required'=>1])  !!} 
                                     <span class="help-block no_of_flats" style="color:red"> </span>
                                 </div> 
@@ -743,7 +743,7 @@
                                     ?>
 
 
-                                        <p style="margin-top: 3px">{{$value->name}} (in m) </p>
+                                        <p style="margin-top: 3px">{{ucfirst($value->name)}} (in m) </p>
                                    </label>
                                     {!! Form::text('neighbourhood_distance['.$value->id.']',$nbhd[$value->id]??null, ['class' => 'form-control','data-required'=>1,'style' => 'margin-bottom:20px'])  !!} 
                                 </div>  
@@ -790,7 +790,7 @@
                                        @endif
                                     @endif
                                         >
-                                        <p style="margin-top: 3px">{{$value->name}} </p>
+                                        <p style="margin-top: 3px">{{ucfirst($value->name)}} </p>
                                    </label> 
                                 </div>  
 
