@@ -81,7 +81,7 @@ class ProjectController extends Controller
            
             $projects = Project::where(function ($query) use ($search,$status) {
                 if (!empty($search)) {
-                    $query->Where('project_name', 'LIKE', "%$search%");
+                    $query->Where('name', 'LIKE', "%$search%");
                 }
 
                 if (!empty($status)) {
